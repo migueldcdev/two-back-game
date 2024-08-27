@@ -28,7 +28,7 @@ export function generateBlock() {
   let block = [];
 
   for (let i = 0; i <= 14; i++) {
-    block.push(generateLetter);
+    block.push(generateLetter());
   }
 
   return block;
