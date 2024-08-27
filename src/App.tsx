@@ -4,8 +4,7 @@ function App() {
     <>
       <div>
         <p>2-BACK GAME</p> 
-      </div>
-     
+      </div>     
     </>
   );
 }
