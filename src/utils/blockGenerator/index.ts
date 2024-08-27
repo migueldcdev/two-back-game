@@ -23,3 +23,14 @@ function generateRandomNumber() {
 export function generateLetter() {
   return letters[generateRandomNumber()];
 }
+
+export function generateBlock() {
+
+  let block = [];
+
+  for(let i =0; i <= 14; i++) {
+    block.push(generateLetter);
+  }
+
+  return block;
+}
