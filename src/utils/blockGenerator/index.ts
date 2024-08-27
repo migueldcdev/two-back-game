@@ -25,10 +25,9 @@ export function generateLetter() {
 }
 
 export function generateBlock() {
-
   let block = [];
 
-  for(let i =0; i <= 14; i++) {
+  for (let i = 0; i <= 14; i++) {
     block.push(generateLetter);
   }
 

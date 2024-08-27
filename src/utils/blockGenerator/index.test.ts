@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { generateBlock ,generateLetter, letters } from "./";
+import { generateBlock, generateLetter, letters } from ".";
 
 describe("Test for generateLetter", () => {
   test("should generate a leter from the array", () => {
@@ -14,4 +14,3 @@ describe("Test for generateBlock", () => {
     expect(result.length).toBe(15);
   });
 });
- 
