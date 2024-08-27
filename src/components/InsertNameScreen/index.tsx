@@ -1,4 +1,21 @@
-export const InsertNameScreen = () => {
+import { useState } from "react";
+
+import { GamePhaseAction } from "../../reducers/gamePhaseReducer";
+
+type ComponentProps = {
+  incrementGamePhase: (value: GamePhaseAction) => void
+} 
+
+export const InsertNameScreen: React.FC<ComponentProps> = ({incrementGamePhase}) => {
+
+  const [name, setName] = useState("");
+
+  const nameLength = name.length;
+
+  function handleInputName(value: string) {
+    setName(value)
+  } 
+
   return (
     <section>
       <div className="flex items-center justify-center flex-col">
@@ -12,14 +29,25 @@ export const InsertNameScreen = () => {
           className="p-2 bg-slate-400 rounded"
           type="text"
           id="name"
-          autoFocus
+          autoFocus          
+          onChange={(e) => {handleInputName(e.target.value)}}
         />
-        <button
+        {nameLength < 1 ?
+          <button
           className="px-4 py-2 bg-green-500 disabled:bg-green-300 rounded text-white text-xl mt-4"
           disabled
         >
           Start
         </button>
+        :
+        <button
+        className="px-4 py-2 bg-green-500 disabled:bg-green-300 rounded text-white text-xl mt-4"
+        onClick={() => {incrementGamePhase({type: 'increment'})}}        
+      >
+        Start
+      </button>
+        }
+        
       </div>
       <article className="p-4 mx-6 my-4 bg-slate-600 text-slate-200 rounded text-sm mt-12">
         <h2 className="text-xl">Instructions</h2>

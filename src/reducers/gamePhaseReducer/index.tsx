@@ -2,7 +2,7 @@ type GamePhaseState = {
   count: number;
 };
 
-type GamePhaseAction = { type: "increment" } | { type: "reset" };
+export type GamePhaseAction = { type: "increment" } | { type: "reset" };
 
 export const initialGamePhaseState = {
   count: 0,
