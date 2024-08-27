@@ -1,5 +1,3 @@
 export const ResultScreen = () => {
-    return(
-        <div></div>
-    )
-}
+  return <div></div>;
+};

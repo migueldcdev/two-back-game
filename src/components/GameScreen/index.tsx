@@ -1,5 +1,3 @@
 export const GameScreen = () => {
-    return(
-        <div></div>
-    )
-}
+  return <div></div>;
+};
