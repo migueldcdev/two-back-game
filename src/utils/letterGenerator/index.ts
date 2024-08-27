@@ -17,7 +17,7 @@ export const letters = [
 ];
 
 function generateRandomNumber() {
-  return Math.floor(Math.random() * 16);
+  return Math.floor(Math.random() * 15);
 }
 
 export function generateLetter() {

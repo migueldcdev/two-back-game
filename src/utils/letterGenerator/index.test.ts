@@ -1,9 +1,9 @@
-import { describe, expect, test } from 'vitest';
-import { letters, generateLetter } from './';
+import { describe, expect, test } from "vitest";
+import { generateLetter, letters } from "./";
 
 describe("Test for generateLetter", () => {
-    test("should generate a leter from the array", () => {
-        const result = generateLetter();
-        expect(letters).toContain(result);
-    })
-})
+  test("should generate a leter from the array", () => {
+    const result = generateLetter();
+    expect(letters).toContain(result);
+  });
+});
