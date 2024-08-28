@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext, useEffect, useReducer } from "react";
 
 import {
   GamePhaseAction,
@@ -7,6 +7,8 @@ import {
   initialGamePhaseState,
 } from "../../reducers/gamePhaseReducer";
 import { initialLetterState, LetterAction, letterReducer, LetterState } from "../../reducers/letterReducer";
+
+import { generateLetter } from "../../utils/letterGenerator";
 
 export type Context = {
   gamePhaseState: GamePhaseState;
@@ -20,6 +22,26 @@ const gameContext = createContext<Context | null>(null);
 export const GameContext = ({ children }: { children: React.ReactNode }) => {
   const [gamePhaseState, gamePhaseDispatch] = useReducer(gamePhaseReducer, initialGamePhaseState);
   const [letterState, letterDispatch] = useReducer(letterReducer, initialLetterState);
+
+
+  function handleShowLetter() {
+    const timeOutShowLetter = setTimeout(() => {
+      letterDispatch({ type: 'hideLetter', nextLetter: '' });
+    }, 500);
+   
+    return () => clearTimeout(timeOutShowLetter);
+  }  
+
+  useEffect(() => {
+    const timeOutNextLetter = setTimeout(() => {
+      letterDispatch({ type: 'next', nextLetter: generateLetter() });      
+      handleShowLetter()
+     
+    }, 3000);
+    
+    return () => clearTimeout(timeOutNextLetter);
+  }, [letterState, gamePhaseState])
+  
 
   return (
     <gameContext.Provider value={{ letterState, letterDispatch, gamePhaseState, gamePhaseDispatch }}>

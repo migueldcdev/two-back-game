@@ -8,7 +8,8 @@ describe("Test for letterReducer", () => {
       twoBackLetter: "",
       previousLetter: "",
       currentLetter: "",
-      count: 0,
+      countCycle: 0,   
+      showLetter: true,   
     };
 
     const firstAction: LetterAction = {
@@ -21,7 +22,9 @@ describe("Test for letterReducer", () => {
       twoBackLetter: "",
       previousLetter: "",
       currentLetter: "A",
-      count: 1,
+      countCycle: 1,
+      showLetter: true,   
+
     });
 
     const secondAction: LetterAction = {
@@ -35,7 +38,9 @@ describe("Test for letterReducer", () => {
       twoBackLetter: "",
       previousLetter: "A",
       currentLetter: "B",
-      count: 2,
+      countCycle: 2,
+      showLetter: true,   
+
     });
 
     const thirdAction: LetterAction = {
@@ -49,7 +54,8 @@ describe("Test for letterReducer", () => {
       twoBackLetter: "A",
       previousLetter: "B",
       currentLetter: "C",
-      count: 3,
+      countCycle: 3,
+      showLetter: true,   
     });
   });
 });

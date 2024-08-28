@@ -4,11 +4,12 @@ export type LetterState = {
   twoBackLetter: string;
   previousLetter: string;
   currentLetter: string;
-  count: number;
+  countCycle: number;
+  showLetter: boolean;
 };
 
 export type LetterAction = {
-  type: "next";
+  type: "next" | "hideLetter";
   nextLetter: string;
 };
 
@@ -16,7 +17,8 @@ export const initialLetterState = {
   twoBackLetter: "",
   previousLetter: "",
   currentLetter: generateLetter(),
-  count: 1,
+  countCycle: 1,
+  showLetter: true
 };
 
 export function letterReducer(state: LetterState, action: LetterAction) {
@@ -27,8 +29,14 @@ export function letterReducer(state: LetterState, action: LetterAction) {
         twoBackLetter: state.previousLetter,
         previousLetter: state.currentLetter,
         currentLetter: action.nextLetter,
-        count: state.count + 1,
-      };
+        countCycle: state.countCycle + 1,
+        showLetter: true,
+      };    
+    case "hideLetter":
+      return {
+        ...state,
+        showLetter: false
+      }  
     default:
       return state;
   }
