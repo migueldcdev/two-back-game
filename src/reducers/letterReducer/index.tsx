@@ -1,3 +1,5 @@
+import { generateLetter } from "../../utils/letterGenerator";
+
 export type LetterState = {
   twoBackLetter: string;
   previousLetter: string;
@@ -13,8 +15,8 @@ export type LetterAction = {
 export const initialLetterState = {
   twoBackLetter: "",
   previousLetter: "",
-  currentLetter: "",
-  count: 0,
+  currentLetter: generateLetter(),
+  count: 1,
 };
 
 export function letterReducer(state: LetterState, action: LetterAction) {
