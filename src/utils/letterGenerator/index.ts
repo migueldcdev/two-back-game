@@ -1,7 +1,7 @@
-export const letters = ["A", "B", "C", "D", "E", "H", "I", "K", "L", "M", "O", "P", "R", "S", "T"];
+export const letters = ["A", "B", "C", "D", "E", "H", "I", "K", "L", "M", "O"];
 
 function generateRandomNumber() {
-  return Math.floor(Math.random() * 15);
+  return Math.floor(Math.random() * 11);
 }
 
 export function generateLetter() {
