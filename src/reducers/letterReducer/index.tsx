@@ -1,11 +1,11 @@
-type LetterState = {
+export type LetterState = {
   twoBackLetter: string;
   previousLetter: string;
   currentLetter: string;
   count: number;
 };
 
-type LetterAction = {
+export type LetterAction = {
   type: "next";
   nextLetter: string;
 };
@@ -25,6 +25,7 @@ export function letterReducer(state: LetterState, action: LetterAction) {
         twoBackLetter: state.previousLetter,
         previousLetter: state.currentLetter,
         currentLetter: action.nextLetter,
+        count: state.count + 1,
       };
     default:
       return state;
