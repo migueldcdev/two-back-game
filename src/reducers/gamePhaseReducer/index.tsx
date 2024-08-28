@@ -1,4 +1,4 @@
-type GamePhaseState = {
+export type GamePhaseState = {
   count: number;
 };
 

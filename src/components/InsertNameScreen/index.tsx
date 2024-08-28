@@ -1,12 +1,9 @@
 import { useState } from "react";
+import { useGameContext } from "../../context/GameContext";
 
-import { GamePhaseAction } from "../../reducers/gamePhaseReducer";
+export const InsertNameScreen = () => {
+  const { gamePhaseDispatch } = useGameContext();
 
-type ComponentProps = {
-  incrementGamePhase: (value: GamePhaseAction) => void;
-};
-
-export const InsertNameScreen: React.FC<ComponentProps> = ({ incrementGamePhase }) => {
   const [name, setName] = useState("");
 
   const nameLength = name.length;
@@ -39,7 +36,7 @@ export const InsertNameScreen: React.FC<ComponentProps> = ({ incrementGamePhase 
           <button
             className="px-4 py-2 bg-green-500 rounded text-white text-xl mt-4"
             onClick={() => {
-              incrementGamePhase({ type: "increment" });
+              gamePhaseDispatch({ type: "increment" });
             }}
           >
             Start
