@@ -35,32 +35,44 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
     return () => clearTimeout(timeOutShowLetter);
   }
 
+  function handleCorrectGuess() {
+    guessesDispatch({ type: "incrementCorrect" });
+    letterDispatch({ type: "setCorrect", nextLetter: "" });
+  }
+
+  function handleIncorrectGuess() {
+    guessesDispatch({ type: "incrementError" });
+    letterDispatch({ type: "setError", nextLetter: "" });
+
+    if (guessesState.error > 0) gamePhaseDispatch({ type: "increment" });
+  }
+
   function handleUserClick() {
-    if (gamePhaseState.count === 1) {
-      if (letterState.currentLetter === letterState.twoBackLetter) {
-        guessesDispatch({ type: "incrementCorrect" });
-      } else {
-        guessesDispatch({ type: "incrementError" });
-        if (guessesState.error > 0) gamePhaseDispatch({ type: "increment" });
-      }
+    if (gamePhaseState.count !== 1) return;
+
+    const isCorrect = letterState.currentLetter === letterState.twoBackLetter;
+
+    if (isCorrect) {
+      handleCorrectGuess();
+    } else {
+      handleIncorrectGuess();
     }
 
-    if (gamePhaseState.count === 2) {
-      gamePhaseDispatch({ type: "reset" });
-    }
+    return;
   }
 
   useEffect(() => {
-    if (gamePhaseState.count === 1) {
-      if (letterState.countCycle > 15) gamePhaseDispatch({ type: "increment" });
+    if (gamePhaseState.count !== 1) return;
 
-      const timeOutNextLetter = setTimeout(() => {
-        letterDispatch({ type: "next", nextLetter: generateLetter() });
-        handleShowLetter();
-      }, 3000);
+    if (letterState.countCycle > 15) gamePhaseDispatch({ type: "increment" });
 
-      return () => clearTimeout(timeOutNextLetter);
-    }
+    const timeOutNextLetter = setTimeout(() => { 
+
+      letterDispatch({ type: "next", nextLetter: generateLetter() });
+      handleShowLetter();
+    }, 3000);
+
+    return () => clearTimeout(timeOutNextLetter);
   }, [letterState, gamePhaseState]);
 
   return (
