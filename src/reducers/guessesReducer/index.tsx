@@ -1,4 +1,4 @@
-type GuessesState = {
+export type GuessesState = {
   correct: number;
   error: number;
 };

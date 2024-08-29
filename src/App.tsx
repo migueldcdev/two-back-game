@@ -5,10 +5,10 @@ import { ResultScreen } from "./components/ResultScreen";
 import { useGameContext } from "./context/GameContext";
 
 const App = () => {
-  const { gamePhaseState } = useGameContext();
+  const { gamePhaseState, handleUserClick } = useGameContext();
 
   return (
-    <main className="flex items-center justify-center h-screen bg-slate-300">
+    <main className="flex items-center justify-center h-screen bg-slate-300" onClick={handleUserClick}>
       <div className="w-3/4 md:w-1/3 p-2 rounded">
         {gamePhaseState.count === 0 && <InsertNameScreen />}
         {gamePhaseState.count === 1 && <GameScreen />}

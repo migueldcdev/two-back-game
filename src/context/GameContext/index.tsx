@@ -7,6 +7,7 @@ import {
   initialGamePhaseState,
 } from "../../reducers/gamePhaseReducer";
 import { initialLetterState, LetterAction, letterReducer, LetterState } from "../../reducers/letterReducer";
+import { initialGuessesState, guessesReducer, GuessesState } from "../../reducers/guessesReducer";
 
 import { generateLetter } from "../../utils/letterGenerator";
 
@@ -15,6 +16,8 @@ export type Context = {
   gamePhaseDispatch: (type: GamePhaseAction) => void;
   letterState: LetterState;
   letterDispatch: (type: LetterAction) => void;
+  handleUserClick: () => void;
+  guessesState: GuessesState;
 };
 
 const gameContext = createContext<Context | null>(null);
@@ -22,6 +25,7 @@ const gameContext = createContext<Context | null>(null);
 export const GameContext = ({ children }: { children: React.ReactNode }) => {
   const [gamePhaseState, gamePhaseDispatch] = useReducer(gamePhaseReducer, initialGamePhaseState);
   const [letterState, letterDispatch] = useReducer(letterReducer, initialLetterState);
+  const [guessesState, guessesDispatch] = useReducer(guessesReducer, initialGuessesState)
 
 
   function handleShowLetter() {
@@ -31,6 +35,21 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
    
     return () => clearTimeout(timeOutShowLetter);
   }  
+
+
+  function handleUserClick() {
+    if(gamePhaseState.count === 1) {
+      if(letterState.currentLetter === letterState.twoBackLetter) {
+        guessesDispatch({type: "incrementCorrect"})
+      } else {
+        guessesDispatch({type: "incrementError"})
+      }
+    }
+
+    if(gamePhaseState.count === 2) {
+      gamePhaseDispatch({type: 'reset'})
+    }
+  }
 
   useEffect(() => {
     if(gamePhaseState.count === 1) {
@@ -50,7 +69,7 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
   
 
   return (
-    <gameContext.Provider value={{ letterState, letterDispatch, gamePhaseState, gamePhaseDispatch }}>
+    <gameContext.Provider value={{ letterState, letterDispatch, gamePhaseState, gamePhaseDispatch, handleUserClick, guessesState }}>
       {children}
     </gameContext.Provider>
   );
