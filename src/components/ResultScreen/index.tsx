@@ -1,7 +1,6 @@
 import { useGameContext } from "../../context/GameContext";
 
 export const ResultScreen = () => {
-
   const { guessesState } = useGameContext();
 
   return (
@@ -19,5 +18,5 @@ export const ResultScreen = () => {
         <p>Click anywhere to restart game.</p>
       </div>
     </section>
-  )
+  );
 };

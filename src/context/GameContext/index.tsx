@@ -6,8 +6,8 @@ import {
   GamePhaseState,
   initialGamePhaseState,
 } from "../../reducers/gamePhaseReducer";
+import { guessesReducer, GuessesState, initialGuessesState } from "../../reducers/guessesReducer";
 import { initialLetterState, LetterAction, letterReducer, LetterState } from "../../reducers/letterReducer";
-import { initialGuessesState, guessesReducer, GuessesState } from "../../reducers/guessesReducer";
 
 import { generateLetter } from "../../utils/letterGenerator";
 
@@ -25,51 +25,48 @@ const gameContext = createContext<Context | null>(null);
 export const GameContext = ({ children }: { children: React.ReactNode }) => {
   const [gamePhaseState, gamePhaseDispatch] = useReducer(gamePhaseReducer, initialGamePhaseState);
   const [letterState, letterDispatch] = useReducer(letterReducer, initialLetterState);
-  const [guessesState, guessesDispatch] = useReducer(guessesReducer, initialGuessesState)
-
+  const [guessesState, guessesDispatch] = useReducer(guessesReducer, initialGuessesState);
 
   function handleShowLetter() {
     const timeOutShowLetter = setTimeout(() => {
-      letterDispatch({ type: 'hideLetter', nextLetter: '' });
+      letterDispatch({ type: "hideLetter", nextLetter: "" });
     }, 500);
-   
-    return () => clearTimeout(timeOutShowLetter);
-  }  
 
+    return () => clearTimeout(timeOutShowLetter);
+  }
 
   function handleUserClick() {
-    if(gamePhaseState.count === 1) {
-      if(letterState.currentLetter === letterState.twoBackLetter) {
-        guessesDispatch({type: "incrementCorrect"})
+    if (gamePhaseState.count === 1) {
+      if (letterState.currentLetter === letterState.twoBackLetter) {
+        guessesDispatch({ type: "incrementCorrect" });
       } else {
-        guessesDispatch({type: "incrementError"})
+        guessesDispatch({ type: "incrementError" });
+        if (guessesState.error > 0) gamePhaseDispatch({ type: "increment" });
       }
     }
 
-    if(gamePhaseState.count === 2) {
-      gamePhaseDispatch({type: 'reset'})
+    if (gamePhaseState.count === 2) {
+      gamePhaseDispatch({ type: "reset" });
     }
   }
 
   useEffect(() => {
-    if(gamePhaseState.count === 1) {
-
-      if (letterState.countCycle > 15) gamePhaseDispatch({type: 'increment'})
+    if (gamePhaseState.count === 1) {
+      if (letterState.countCycle > 15) gamePhaseDispatch({ type: "increment" });
 
       const timeOutNextLetter = setTimeout(() => {
-        letterDispatch({ type: 'next', nextLetter: generateLetter() });      
-        handleShowLetter()
-       
+        letterDispatch({ type: "next", nextLetter: generateLetter() });
+        handleShowLetter();
       }, 3000);
-      
+
       return () => clearTimeout(timeOutNextLetter);
     }
-   
-  }, [letterState, gamePhaseState])  
-  
+  }, [letterState, gamePhaseState]);
 
   return (
-    <gameContext.Provider value={{ letterState, letterDispatch, gamePhaseState, gamePhaseDispatch, handleUserClick, guessesState }}>
+    <gameContext.Provider
+      value={{ letterState, letterDispatch, gamePhaseState, gamePhaseDispatch, handleUserClick, guessesState }}
+    >
       {children}
     </gameContext.Provider>
   );
