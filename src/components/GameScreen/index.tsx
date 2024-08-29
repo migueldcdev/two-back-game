@@ -6,9 +6,18 @@ export const GameScreen = () => {
   return (
     <section className="text-9xl text-center">
       <div className="text-slate-800">
-        <span className="text-slate-400">⌜ ⌝</span>
+        {letterState.correct || letterState.error ? (
+          <span className={letterState.correct ? "text-green-500" : "text-red-500"}>⌜&nbsp;⌝</span>
+        ) : (
+          <span className="text-slate-400">⌜&nbsp;⌝</span>
+        )}
+
         <div>{letterState.showLetter ? letterState.currentLetter : <span className="text-slate-300">*</span>}</div>
-        <span className="text-slate-400">⌞ ⌟</span>
+        {letterState.correct || letterState.error ? (
+          <span className={letterState.correct ? "text-green-500" : "text-red-500"}>⌞&nbsp;⌟</span>
+        ) : (
+          <span className="text-slate-400">⌞&nbsp;⌟</span>
+        )}
         <span className="text-sm">{letterState.countCycle}</span>
       </div>
     </section>
