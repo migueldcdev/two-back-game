@@ -1,4 +1,3 @@
-import { generateLetter } from "../../utils/letterGenerator";
 
 export type LetterState = {
   twoBackLetter: string;
@@ -16,8 +15,8 @@ export type LetterAction = {
 export const initialLetterState = {
   twoBackLetter: "",
   previousLetter: "",
-  currentLetter: generateLetter(),
-  countCycle: 1,
+  currentLetter: "",
+  countCycle: 0,
   showLetter: true
 };
 

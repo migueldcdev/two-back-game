@@ -33,15 +33,23 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
   }  
 
   useEffect(() => {
-    const timeOutNextLetter = setTimeout(() => {
-      letterDispatch({ type: 'next', nextLetter: generateLetter() });      
-      handleShowLetter()
-     
-    }, 3000);
-    
-    return () => clearTimeout(timeOutNextLetter);
+    if(gamePhaseState.count === 1) {
+      const timeOutNextLetter = setTimeout(() => {
+        letterDispatch({ type: 'next', nextLetter: generateLetter() });      
+        handleShowLetter()
+       
+      }, 3000);
+      
+      return () => clearTimeout(timeOutNextLetter);
+    }
+   
   }, [letterState, gamePhaseState])
   
+  useEffect(() => {
+    if(gamePhaseState.count === 1 && letterState.countCycle > 15) {
+      gamePhaseDispatch({type: 'increment'})
+    } 
+  },[letterState, gamePhaseState])
 
   return (
     <gameContext.Provider value={{ letterState, letterDispatch, gamePhaseState, gamePhaseDispatch }}>
