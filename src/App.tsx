@@ -10,9 +10,9 @@ const App = () => {
   return (
     <main className="flex items-center justify-center h-screen bg-slate-300" onClick={handleUserClick}>
       <div className="w-3/4 md:w-1/3 p-2 rounded">
-        {gamePhaseState.count === 0 && <InsertNameScreen />}
-        {gamePhaseState.count === 1 && <GameScreen />}
-        {gamePhaseState.count === 2 && <ResultScreen />}
+        {gamePhaseState.phase === 0 && <InsertNameScreen />}
+        {gamePhaseState.phase === 1 && <GameScreen />}
+        {gamePhaseState.phase === 2 && <ResultScreen />}
       </div>
     </main>
   );

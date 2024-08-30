@@ -58,11 +58,11 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
   }
 
   function handleUserClick() {
-    if (gamePhaseState.count === 0) return;
+    if (gamePhaseState.phase === 0) return;
 
-    if (gamePhaseState.count === 1) checkUserClickResult();
+    if (gamePhaseState.phase === 1) checkUserClickResult();
 
-    if (gamePhaseState.count === 2) resetGame();
+    if (gamePhaseState.phase === 2) resetGame();
   }
 
   const handleUserOmission = useCallback(() => {
@@ -89,7 +89,7 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
   }
 
   useEffect(() => {
-    if (gamePhaseState.count !== 1) return;
+    if (gamePhaseState.phase !== 1) return;
 
     if (letterState.countCycle > 15) gamePhaseDispatch({ type: "increment" });
 
