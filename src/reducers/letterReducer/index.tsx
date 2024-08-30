@@ -44,11 +44,13 @@ export function letterReducer(state: LetterState, action: LetterAction) {
       return {
         ...state,
         correct: true,
+        error: false,
       };
     case "setError":
       return {
         ...state,
         error: true,
+        correct: false,
       };
     case "reset":
       return initialLetterState;
