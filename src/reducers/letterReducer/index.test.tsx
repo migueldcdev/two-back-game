@@ -1,25 +1,16 @@
 import { describe, expect, test } from "vitest";
 
-import { LetterAction, letterReducer, LetterState } from ".";
+import { LetterAction, letterReducer, LetterState, initialLetterState} from ".";
 
-const initialState: LetterState = {
-  twoBackLetter: "",
-  previousLetter: "",
-  currentLetter: "",
-  countCycle: 0,
-  showLetter: true,
-  correct: false,
-  error: false,
-};
 
 describe("Test for letterReducer", () => {
   test("should set showLetter to false", () => {
     const hideLetterAction: LetterAction = {type: 'hideLetter'};
 
-    const updatedState = letterReducer(initialState, hideLetterAction);
+    const updatedState = letterReducer(initialLetterState, hideLetterAction);
 
     expect(updatedState).toEqual({
-      ...initialState,
+      ...initialLetterState,
       showLetter: false,
     })
   })
@@ -28,10 +19,10 @@ describe("Test for letterReducer", () => {
     const setCorrectAction: LetterAction = {type: 'setCorrect'};
     const setErrorAction: LetterAction = {type: 'setError'};
 
-    const updatedStateOne = letterReducer(initialState, setCorrectAction);
+    const updatedStateOne = letterReducer(initialLetterState, setCorrectAction);
 
     expect(updatedStateOne).toEqual({
-      ...initialState,
+      ...initialLetterState,
       correct: true,
       error: false,
     })
@@ -39,7 +30,7 @@ describe("Test for letterReducer", () => {
     const updatedStateTwo = letterReducer(updatedStateOne, setErrorAction);
 
     expect(updatedStateTwo).toEqual({
-      ...initialState,
+      ...initialLetterState,
       correct: false,
       error: true,
     })
@@ -52,7 +43,7 @@ describe("Test for letterReducer", () => {
       nextLetter: "A",
     };
 
-    const firstUpdatedState = letterReducer(initialState, firstAction);
+    const firstUpdatedState = letterReducer(initialLetterState, firstAction);
     expect(firstUpdatedState).toEqual({
       ...firstUpdatedState,
       twoBackLetter: "",
@@ -107,7 +98,7 @@ describe("Test for letterReducer", () => {
     
     const resetedState = letterReducer(finalState, resetStateAction);
 
-    expect(resetedState).toEqual(initialState);
+    expect(resetedState).toEqual(initialLetterState);
 
   })
 
