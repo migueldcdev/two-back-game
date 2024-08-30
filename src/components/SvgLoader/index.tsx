@@ -1,7 +1,7 @@
 export const SvgLoader = () => {
   return (
-    <div className="w-1/2">
-      <p className="text-2xl text-slate-500">Get ready!</p>
+    <div className="md:w-1/2">
+      <p className="text-xl md:text-2xl text-slate-500">Get ready!</p>
       <svg
         version="1.1"
         id="L6"
