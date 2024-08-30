@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useReducer } from "react";
+import React, { createContext, useCallback, useContext, useEffect, useReducer } from "react";
 
 import {
   GamePhaseAction,
@@ -47,7 +47,6 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
 
     guessesDispatch({ type: "incrementError" });
     letterDispatch({ type: "setError", nextLetter: "" });
-
     if (guessesState.error > 0) gamePhaseDispatch({ type: "increment" });
   }
 
@@ -60,8 +59,24 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
       handleCorrectGuess();
     } else {
       handleIncorrectGuess();
+      if (guessesState.error > 0) gamePhaseDispatch({ type: "increment" });
     }
   }
+
+  const handleUserOmission = useCallback(() => {
+    if (letterState.correct || letterState.error) return;
+
+    const isAnOmissionError = letterState.currentLetter === letterState.twoBackLetter;
+
+    if (isAnOmissionError) {
+      if (letterState.countCycle >= 2) {
+        guessesDispatch({ type: "incrementError" });
+        if (guessesState.error > 0) gamePhaseDispatch({ type: "increment" });
+      }
+    } else {
+      guessesDispatch({ type: "incrementCorrect" });
+    }
+  }, [letterState, guessesState]);
 
   useEffect(() => {
     if (gamePhaseState.count !== 1) return;
@@ -69,12 +84,13 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
     if (letterState.countCycle > 15) gamePhaseDispatch({ type: "increment" });
 
     const timeOutNextLetter = setTimeout(() => {
+      handleUserOmission();
       letterDispatch({ type: "next", nextLetter: generateLetter() });
       handleShowLetter();
     }, 3000);
 
     return () => clearTimeout(timeOutNextLetter);
-  }, [letterState, gamePhaseState]);
+  }, [letterState, gamePhaseState, handleUserOmission]);
 
   return (
     <gameContext.Provider
