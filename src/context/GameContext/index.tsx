@@ -20,7 +20,7 @@ export type Context = {
   guessesState: GuessesState;
 };
 
-const gameContext = createContext<Context | null>(null);
+export const gameContext = createContext<Context | null>(null);
 
 export const GameContext = ({ children }: { children: React.ReactNode }) => {
   const [gamePhaseState, gamePhaseDispatch] = useReducer(gamePhaseReducer, initialGamePhaseState);

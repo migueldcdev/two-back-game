@@ -1,23 +1,22 @@
 import { describe, expect, test } from "vitest";
 
-import { LetterAction, letterReducer, LetterState, initialLetterState} from ".";
-
+import { initialLetterState, LetterAction, letterReducer, LetterState } from ".";
 
 describe("Test for letterReducer", () => {
   test("should set showLetter to false", () => {
-    const hideLetterAction: LetterAction = {type: 'hideLetter'};
+    const hideLetterAction: LetterAction = { type: "hideLetter" };
 
     const updatedState = letterReducer(initialLetterState, hideLetterAction);
 
     expect(updatedState).toEqual({
       ...initialLetterState,
       showLetter: false,
-    })
-  })
+    });
+  });
 
   test("correct and error should not be true at the same time", () => {
-    const setCorrectAction: LetterAction = {type: 'setCorrect'};
-    const setErrorAction: LetterAction = {type: 'setError'};
+    const setCorrectAction: LetterAction = { type: "setCorrect" };
+    const setErrorAction: LetterAction = { type: "setError" };
 
     const updatedStateOne = letterReducer(initialLetterState, setCorrectAction);
 
@@ -25,7 +24,7 @@ describe("Test for letterReducer", () => {
       ...initialLetterState,
       correct: true,
       error: false,
-    })
+    });
 
     const updatedStateTwo = letterReducer(updatedStateOne, setErrorAction);
 
@@ -33,11 +32,10 @@ describe("Test for letterReducer", () => {
       ...initialLetterState,
       correct: false,
       error: true,
-    })
-  })
+    });
+  });
 
-  test("should save values to state properly", () => {  
-
+  test("should save values to state properly", () => {
     const firstAction: LetterAction = {
       type: "next",
       nextLetter: "A",
@@ -49,7 +47,7 @@ describe("Test for letterReducer", () => {
       twoBackLetter: "",
       previousLetter: "",
       currentLetter: "A",
-      countCycle: 1,      
+      countCycle: 1,
     });
 
     const secondAction: LetterAction = {
@@ -64,7 +62,7 @@ describe("Test for letterReducer", () => {
       twoBackLetter: "",
       previousLetter: "A",
       currentLetter: "B",
-      countCycle: 2,      
+      countCycle: 2,
     });
 
     const thirdAction: LetterAction = {
@@ -79,7 +77,7 @@ describe("Test for letterReducer", () => {
       twoBackLetter: "A",
       previousLetter: "B",
       currentLetter: "C",
-      countCycle: 3,      
+      countCycle: 3,
     });
   });
 
@@ -94,12 +92,10 @@ describe("Test for letterReducer", () => {
       error: false,
     };
 
-    const resetStateAction: LetterAction = {type: 'reset'};
-    
+    const resetStateAction: LetterAction = { type: "reset" };
+
     const resetedState = letterReducer(finalState, resetStateAction);
 
     expect(resetedState).toEqual(initialLetterState);
-
-  })
-
+  });
 });
