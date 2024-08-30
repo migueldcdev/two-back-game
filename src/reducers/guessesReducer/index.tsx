@@ -3,7 +3,7 @@ export type GuessesState = {
   error: number;
 };
 
-type GuessesAction = { type: "incrementCorrect" | "incrementError" };
+type GuessesAction = { type: "incrementCorrect" | "incrementError" | "reset" };
 
 export const initialGuessesState = {
   correct: 0,
@@ -16,6 +16,8 @@ export function guessesReducer(state: GuessesState, action: GuessesAction) {
       return { ...state, correct: state.correct + 1 };
     case "incrementError":
       return { ...state, error: state.error + 1 };
+    case "reset":
+      return initialGuessesState;
     default:
       return state;
   }

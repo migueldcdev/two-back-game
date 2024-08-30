@@ -42,17 +42,27 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
     if (guessesState.error > 0) gamePhaseDispatch({ type: "increment" });
   }
 
-  function handleUserClick() {
-    if (gamePhaseState.count !== 1) return;
-
+  function checkUserClickResult() {
     const isCorrect = letterState.currentLetter === letterState.twoBackLetter;
-
     if (isCorrect) {
       handleCorrectGuess();
     } else {
       handleIncorrectGuess();
-      if (guessesState.error > 0) gamePhaseDispatch({ type: "increment" });
     }
+  }
+
+  function resetGame() {
+    gamePhaseDispatch({ type: "reset" });
+    letterDispatch({ type: "reset" });
+    guessesDispatch({ type: "reset" });
+  }
+
+  function handleUserClick() {
+    if (gamePhaseState.count === 0) return;
+
+    if (gamePhaseState.count === 1) checkUserClickResult();
+
+    if (gamePhaseState.count === 2) resetGame();
   }
 
   const handleUserOmission = useCallback(() => {

@@ -13,7 +13,7 @@ export function gamePhaseReducer(state: GamePhaseState, action: GamePhaseAction)
     case "increment":
       return { ...state, count: state.count + 1 };
     case "reset":
-      return { ...state, count: 0 };
+      return initialGamePhaseState;
     default:
       return state;
   }

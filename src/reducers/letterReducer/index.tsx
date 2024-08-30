@@ -8,7 +8,9 @@ export type LetterState = {
   error: boolean;
 };
 
-export type LetterAction = { type: "next"; nextLetter: string } | { type: "hideLetter" | "setCorrect" | "setError" };
+export type LetterAction =
+  | { type: "next"; nextLetter: string }
+  | { type: "hideLetter" | "setCorrect" | "setError" | "reset" };
 
 export const initialLetterState = {
   twoBackLetter: "",
@@ -48,6 +50,8 @@ export function letterReducer(state: LetterState, action: LetterAction) {
         ...state,
         error: true,
       };
+    case "reset":
+      return initialLetterState;
     default:
       return state;
   }
