@@ -1,6 +1,7 @@
 import { GameScreen } from "./components/GameScreen";
 import { InsertNameScreen } from "./components/InsertNameScreen";
 import { ResultScreen } from "./components/ResultScreen";
+import { EventRegister } from "./components/EventRegister";
 
 import { useGameContext } from "./context/GameContext";
 
@@ -13,6 +14,7 @@ const App = () => {
         {gamePhaseState.phase === 0 && <InsertNameScreen />}
         {gamePhaseState.phase === 1 && <GameScreen />}
         {gamePhaseState.phase === 2 && <ResultScreen />}
+        <EventRegister />
       </div>
     </main>
   );
