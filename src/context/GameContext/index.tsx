@@ -71,13 +71,13 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
     const isAnOmissionError = letterState.currentLetter === letterState.twoBackLetter;
 
     if (isAnOmissionError) {
-      if (letterState.countCycle >= 2) {
-        guessesDispatch({ type: "incrementError" });
-        if (guessesState.error > 0) gamePhaseDispatch({ type: "increment" });
-      }
-    } else {
-      guessesDispatch({ type: "incrementCorrect" });
+      if (letterState.countCycle >= 2) guessesDispatch({ type: "incrementError" });
+      if (guessesState.error > 0) gamePhaseDispatch({ type: "increment" });
+
+      return;
     }
+
+    guessesDispatch({ type: "incrementCorrect" });
   }, [letterState, guessesState]);
 
   function handleShowLetter() {
