@@ -27,26 +27,18 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
   const [letterState, letterDispatch] = useReducer(letterReducer, initialLetterState);
   const [guessesState, guessesDispatch] = useReducer(guessesReducer, initialGuessesState);
 
-  function handleShowLetter() {
-    const timeOutShowLetter = setTimeout(() => {
-      letterDispatch({ type: "hideLetter", nextLetter: "" });
-    }, 500);
-
-    return () => clearTimeout(timeOutShowLetter);
-  }
-
   function handleCorrectGuess() {
     if (letterState.correct) return;
 
     guessesDispatch({ type: "incrementCorrect" });
-    letterDispatch({ type: "setCorrect", nextLetter: "" });
+    letterDispatch({ type: "setCorrect" });
   }
 
   function handleIncorrectGuess() {
     if (letterState.error) return;
 
     guessesDispatch({ type: "incrementError" });
-    letterDispatch({ type: "setError", nextLetter: "" });
+    letterDispatch({ type: "setError" });
     if (guessesState.error > 0) gamePhaseDispatch({ type: "increment" });
   }
 
@@ -77,6 +69,14 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
       guessesDispatch({ type: "incrementCorrect" });
     }
   }, [letterState, guessesState]);
+
+  function handleShowLetter() {
+    const timeOutShowLetter = setTimeout(() => {
+      letterDispatch({ type: "hideLetter" });
+    }, 500);
+
+    return () => clearTimeout(timeOutShowLetter);
+  }
 
   useEffect(() => {
     if (gamePhaseState.count !== 1) return;
