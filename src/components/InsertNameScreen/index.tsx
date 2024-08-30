@@ -24,6 +24,7 @@ export const InsertNameScreen = () => {
           type="text"
           id="name"
           autoFocus
+          placeholder="Jane"
           onChange={(e) => {
             handleInputName(e.target.value);
           }}
