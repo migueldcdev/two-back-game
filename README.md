@@ -19,3 +19,19 @@ To start the development server and begin working on your project, run:
 ```bash
 npm run dev
 ```
+
+### Testing
+
+To run the test suite, use:
+
+```bash
+npm run test
+```
+
+### Code formating
+
+To format your code using Prettier, run:
+
+```bash
+npx prettier . --write
+```
