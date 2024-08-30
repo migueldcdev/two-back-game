@@ -23,7 +23,6 @@ export const GameScreen = () => {
           ) : (
             <span className="text-slate-400">⌞&nbsp;&nbsp;⌟</span>
           )}
-          <span className="text-sm">{letterState.countCycle}</span>
         </div>
       )}
     </section>

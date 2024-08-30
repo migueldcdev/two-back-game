@@ -115,7 +115,7 @@ export const useGameContext = () => {
   const context = useContext(gameContext);
 
   if (!context) {
-    throw new Error("useIdeaContext must be used within a user provider");
+    throw new Error("useIdeaContext must be used within a game provider");
   }
 
   return context;

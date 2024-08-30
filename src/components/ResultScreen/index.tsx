@@ -5,12 +5,12 @@ export const ResultScreen = () => {
 
   return (
     <section>
-      <article className="text-center border-2 border-slate-400 p-3 rounded">
-        <p className="text-xl mb-10 text-slate-600 ">RESULTS</p>
-        <p className="mb-4 text-slate-500">
+      <article className="text-center p-3 rounded bg-slate-600">
+        <p className="text-2xl mb-6 text-slate-300 ">RESULTS</p>
+        <p className="mb-4 text-slate-400">
           Correct: <span className="text-green-500">{guessesState.correct}</span>
         </p>
-        <p className="text-slate-500">
+        <p className="text-slate-400">
           Errors: <span className="text-red-500">{guessesState.error}</span>
         </p>
       </article>
