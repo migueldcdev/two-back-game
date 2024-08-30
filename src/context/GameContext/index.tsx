@@ -61,8 +61,6 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
     } else {
       handleIncorrectGuess();
     }
-
-    return;
   }
 
   useEffect(() => {
@@ -71,7 +69,6 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
     if (letterState.countCycle > 15) gamePhaseDispatch({ type: "increment" });
 
     const timeOutNextLetter = setTimeout(() => {
-
       letterDispatch({ type: "next", nextLetter: generateLetter() });
       handleShowLetter();
     }, 3000);
@@ -94,7 +91,6 @@ export const useGameContext = () => {
   if (!context) {
     throw new Error("useIdeaContext must be used within a user provider");
   }
-
 
   return context;
 };

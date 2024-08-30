@@ -10,6 +10,8 @@ describe("Test for letterReducer", () => {
       currentLetter: "",
       countCycle: 0,
       showLetter: true,
+      correct: false,
+      error: false,
     };
 
     const firstAction: LetterAction = {
