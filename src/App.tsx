@@ -1,7 +1,7 @@
+import { EventRegister } from "./components/EventRegister";
 import { GameScreen } from "./components/GameScreen";
 import { InsertNameScreen } from "./components/InsertNameScreen";
 import { ResultScreen } from "./components/ResultScreen";
-import { EventRegister } from "./components/EventRegister";
 
 import { useGameContext } from "./context/GameContext";
 
