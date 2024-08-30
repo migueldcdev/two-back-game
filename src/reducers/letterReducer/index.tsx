@@ -8,11 +8,7 @@ export type LetterState = {
   error: boolean;
 };
 
-export type LetterAction =
-  | { type: "next"; nextLetter: string }
-  | { type: "hideLetter" }
-  | { type: "setCorrect" }
-  | { type: "setError" };
+export type LetterAction = { type: "next"; nextLetter: string } | { type: "hideLetter" | "setCorrect" | "setError" };
 
 export const initialLetterState = {
   twoBackLetter: "",

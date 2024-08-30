@@ -3,7 +3,7 @@ export type GuessesState = {
   error: number;
 };
 
-type GuessesAction = { type: "incrementCorrect" } | { type: "incrementError" };
+type GuessesAction = { type: "incrementCorrect" | "incrementError" };
 
 export const initialGuessesState = {
   correct: 0,
