@@ -1,4 +1,4 @@
-export type LetterState = {
+export type GameState = {
   twoBackLetter: string;
   previousLetter: string;
   currentLetter: string;
@@ -11,11 +11,11 @@ export type LetterState = {
   wrongAnswers: number;
 };
 
-export type LetterAction =
+export type GameAction =
   | { type: "next"; nextLetter: string }
   | { type: "hideLetter" | "setUserClickCorrect" | "setUserClickWrong" | "reset" | "nextGamePhase" | "incrementCorrectAnswer" | "incrementWrongAnswer" };
 
-export const initialLetterState = {
+export const initialGameState = {
   twoBackLetter: "",
   previousLetter: "",
   currentLetter: "",
@@ -28,7 +28,7 @@ export const initialLetterState = {
   wrongAnswers: 0,
 };
 
-export function letterReducer(state: LetterState, action: LetterAction) {
+export function gameReducer(state: GameState, action: GameAction) {
   switch (action.type) {
     case "next":
       return {
@@ -75,7 +75,7 @@ export function letterReducer(state: LetterState, action: LetterAction) {
         wrongAnswers: state.wrongAnswers + 1,
       }  
     case "reset":
-      return initialLetterState;
+      return initialGameState;
     default:
       return state;
   }

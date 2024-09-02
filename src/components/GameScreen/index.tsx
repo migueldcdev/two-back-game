@@ -3,23 +3,23 @@ import { useGameContext } from "../../context/GameContext";
 import { SvgLoader } from "../SvgLoader";
 
 export const GameScreen = () => {
-  const { letterState } = useGameContext();
+  const { gameState } = useGameContext();
 
   return (
     <section className="text-9xl text-center flex justify-center">
-      {letterState.countCycle === 0 ? (
+      {gameState.countCycle === 0 ? (
         <SvgLoader />
       ) : (
         <div className="text-slate-700">
-          {letterState.userClickIsCorrect || letterState.userClickIsWrong ? (
-            <span className={letterState.userClickIsCorrect ? "text-green-500" : "text-red-500"}>⌜&nbsp;&nbsp;⌝</span>
+          {gameState.userClickIsCorrect || gameState.userClickIsWrong ? (
+            <span className={gameState.userClickIsCorrect ? "text-green-500" : "text-red-500"}>⌜&nbsp;&nbsp;⌝</span>
           ) : (
             <span className="text-slate-400">⌜&nbsp;&nbsp;⌝</span>
           )}
 
-          <div>{letterState.showLetter ? letterState.currentLetter : <span className="text-slate-300">*</span>}</div>
-          {letterState.userClickIsCorrect || letterState.userClickIsWrong ? (
-            <span className={letterState.userClickIsCorrect ? "text-green-500" : "text-red-500"}>⌞&nbsp;&nbsp;⌟</span>
+          <div>{gameState.showLetter ? gameState.currentLetter : <span className="text-slate-300">*</span>}</div>
+          {gameState.userClickIsCorrect || gameState.userClickIsWrong ? (
+            <span className={gameState.userClickIsCorrect ? "text-green-500" : "text-red-500"}>⌞&nbsp;&nbsp;⌟</span>
           ) : (
             <span className="text-slate-400">⌞&nbsp;&nbsp;⌟</span>
           )}

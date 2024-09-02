@@ -1,37 +1,37 @@
 import React, { createContext, useCallback, useContext, useEffect, useReducer } from "react";
 
-import { initialLetterState, LetterAction, letterReducer, LetterState } from "../../reducers/letterReducer";
+import { initialGameState, GameAction, gameReducer, GameState } from "../../reducers/gameReducer";
 
 import { generateLetter } from "../../utils/letterGenerator";
 
 export type Context = {
-  letterState: LetterState;
-  letterDispatch: (type: LetterAction) => void;
+  gameState: GameState;
+  gameDispatch: (type: GameAction) => void;
   handleUserClick: () => void; 
 };
 
 export const gameContext = createContext<Context | null>(null);
 
 export const GameContext = ({ children }: { children: React.ReactNode }) => {
-  const [letterState, letterDispatch] = useReducer(letterReducer, initialLetterState);  
+  const [gameState, gameDispatch] = useReducer(gameReducer, initialGameState);  
 
   function handleCorrectGuess() {
-    if (letterState.userClickIsCorrect) return;
+    if (gameState.userClickIsCorrect) return;
 
-    letterDispatch({ type: "incrementCorrectAnswer" });
-    letterDispatch({ type: "setUserClickCorrect" });
+    gameDispatch({ type: "incrementCorrectAnswer" });
+    gameDispatch({ type: "setUserClickCorrect" });
   }
 
   function handleIncorrectGuess() {
-    if (letterState.userClickIsWrong) return;
+    if (gameState.userClickIsWrong) return;
 
-    letterDispatch({ type: "incrementWrongAnswer" });
-    letterDispatch({ type: "setUserClickWrong" });
-    if (letterState.wrongAnswers > 0) letterDispatch({ type: "nextGamePhase" });
+    gameDispatch({ type: "incrementWrongAnswer" });
+    gameDispatch({ type: "setUserClickWrong" });
+    if (gameState.wrongAnswers > 0) gameDispatch({ type: "nextGamePhase" });
   }
 
   function checkUserClickResult() {
-    const isCorrect = letterState.currentLetter === letterState.twoBackLetter;
+    const isCorrect = gameState.currentLetter === gameState.twoBackLetter;
     if (isCorrect) {
       handleCorrectGuess();
     } else {
@@ -40,54 +40,54 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
   }
 
   function resetGame() {
-    letterDispatch({ type: "reset" });    
+    gameDispatch({ type: "reset" });    
   }
 
   function handleUserClick() {
-    if (letterState.gamePhase === 1) return;
-    if (letterState.gamePhase === 2) checkUserClickResult();
-    if (letterState.gamePhase === 3) resetGame();
+    if (gameState.gamePhase === 1) return;
+    if (gameState.gamePhase === 2) checkUserClickResult();
+    if (gameState.gamePhase === 3) resetGame();
   }
 
   const handleUserOmission = useCallback(() => {
-    if (letterState.userClickIsCorrect || letterState.userClickIsWrong) return;
+    if (gameState.userClickIsCorrect || gameState.userClickIsWrong) return;
 
-    const isAnOmissionError = letterState.currentLetter === letterState.twoBackLetter;
+    const isAnOmissionError = gameState.currentLetter === gameState.twoBackLetter;
 
     if (isAnOmissionError) {
-      if (letterState.countCycle >= 2) letterDispatch({ type: "incrementWrongAnswer" });
-      if (letterState.wrongAnswers > 0) letterDispatch({ type: "nextGamePhase" });
+      if (gameState.countCycle >= 2) gameDispatch({ type: "incrementWrongAnswer" });
+      if (gameState.wrongAnswers > 0) gameDispatch({ type: "nextGamePhase" });
 
       return;
     }
 
-    letterDispatch({ type: "incrementCorrectAnswer" });
-  }, [letterState, letterState]);
+    gameDispatch({ type: "incrementCorrectAnswer" });
+  }, [gameState, gameState]);
 
   function handleShowLetter() {
     const timeOutShowLetter = setTimeout(() => {
-      letterDispatch({ type: "hideLetter" });
+      gameDispatch({ type: "hideLetter" });
     }, 500);
 
     return () => clearTimeout(timeOutShowLetter);
   }
 
   useEffect(() => {
-    if (letterState.gamePhase !== 2) return;
+    if (gameState.gamePhase !== 2) return;
 
-    if (letterState.countCycle > 15) letterDispatch({ type: "nextGamePhase" });
+    if (gameState.countCycle > 15) gameDispatch({ type: "nextGamePhase" });
 
     const timeOutNextLetter = setTimeout(() => {
       handleUserOmission();
-      letterDispatch({ type: "next", nextLetter: generateLetter() });
+      gameDispatch({ type: "next", nextLetter: generateLetter() });
       handleShowLetter();
     }, 3000);
 
     return () => clearTimeout(timeOutNextLetter);
-  }, [letterState, handleUserOmission]);
+  }, [gameState, handleUserOmission]);
 
   return (
-    <gameContext.Provider value={{ letterState, letterDispatch, handleUserClick }}>
+    <gameContext.Provider value={{ gameState, gameDispatch, handleUserClick }}>
       {children}
     </gameContext.Provider>
   );
