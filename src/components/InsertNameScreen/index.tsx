@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useGameContext } from "../../context/GameContext";
 
 export const InsertNameScreen = () => {
-  const { gamePhaseDispatch } = useGameContext();
+  const { letterDispatch } = useGameContext();
 
   const [name, setName] = useState("");
 
@@ -29,6 +29,7 @@ export const InsertNameScreen = () => {
             handleInputName(e.target.value);
           }}
         />
+        {/* Button just one */}
         {nameLength < 1 ? (
           <button className="px-4 py-2 bg-green-300 rounded text-white text-xl mt-4" disabled>
             Start
@@ -37,7 +38,7 @@ export const InsertNameScreen = () => {
           <button
             className="px-4 py-2 bg-green-500 rounded text-white text-xl mt-4"
             onClick={() => {
-              gamePhaseDispatch({ type: "increment" });
+              letterDispatch({ type: "nextGamePhase" });
             }}
           >
             Start

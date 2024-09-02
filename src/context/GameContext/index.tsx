@@ -1,19 +1,11 @@
 import React, { createContext, useCallback, useContext, useEffect, useReducer } from "react";
 
-import {
-  GamePhaseAction,
-  gamePhaseReducer,
-  GamePhaseState,
-  initialGamePhaseState,
-} from "../../reducers/gamePhaseReducer";
 import { guessesReducer, GuessesState, initialGuessesState } from "../../reducers/guessesReducer";
 import { initialLetterState, LetterAction, letterReducer, LetterState } from "../../reducers/letterReducer";
 
 import { generateLetter } from "../../utils/letterGenerator";
 
 export type Context = {
-  gamePhaseState: GamePhaseState;
-  gamePhaseDispatch: (type: GamePhaseAction) => void;
   letterState: LetterState;
   letterDispatch: (type: LetterAction) => void;
   handleUserClick: () => void;
@@ -23,7 +15,6 @@ export type Context = {
 export const gameContext = createContext<Context | null>(null);
 
 export const GameContext = ({ children }: { children: React.ReactNode }) => {
-  const [gamePhaseState, gamePhaseDispatch] = useReducer(gamePhaseReducer, initialGamePhaseState);
   const [letterState, letterDispatch] = useReducer(letterReducer, initialLetterState);
   const [guessesState, guessesDispatch] = useReducer(guessesReducer, initialGuessesState);
 
@@ -39,7 +30,7 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
 
     guessesDispatch({ type: "incrementError" });
     letterDispatch({ type: "setError" });
-    if (guessesState.error > 0) gamePhaseDispatch({ type: "increment" });
+    if (guessesState.error > 0) letterDispatch({ type: "nextGamePhase" });
   }
 
   function checkUserClickResult() {
@@ -52,17 +43,14 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
   }
 
   function resetGame() {
-    gamePhaseDispatch({ type: "reset" });
     letterDispatch({ type: "reset" });
     guessesDispatch({ type: "reset" });
   }
 
   function handleUserClick() {
-    if (gamePhaseState.phase === 0) return;
-
-    if (gamePhaseState.phase === 1) checkUserClickResult();
-
-    if (gamePhaseState.phase === 2) resetGame();
+    if (letterState.gamePhase === 1) return;
+    if (letterState.gamePhase === 2) checkUserClickResult();
+    if (letterState.gamePhase === 3) resetGame();
   }
 
   const handleUserOmission = useCallback(() => {
@@ -72,7 +60,7 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
 
     if (isAnOmissionError) {
       if (letterState.countCycle >= 2) guessesDispatch({ type: "incrementError" });
-      if (guessesState.error > 0) gamePhaseDispatch({ type: "increment" });
+      if (guessesState.error > 0) letterDispatch({ type: "nextGamePhase" });
 
       return;
     }
@@ -89,9 +77,9 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
   }
 
   useEffect(() => {
-    if (gamePhaseState.phase !== 1) return;
+    if (letterState.gamePhase !== 2) return;
 
-    if (letterState.countCycle > 15) gamePhaseDispatch({ type: "increment" });
+    if (letterState.countCycle > 15) letterDispatch({ type: "nextGamePhase" });
 
     const timeOutNextLetter = setTimeout(() => {
       handleUserOmission();
@@ -100,12 +88,10 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
     }, 3000);
 
     return () => clearTimeout(timeOutNextLetter);
-  }, [letterState, gamePhaseState, handleUserOmission]);
+  }, [letterState, handleUserOmission]);
 
   return (
-    <gameContext.Provider
-      value={{ letterState, letterDispatch, gamePhaseState, gamePhaseDispatch, handleUserClick, guessesState }}
-    >
+    <gameContext.Provider value={{ letterState, letterDispatch, handleUserClick, guessesState }}>
       {children}
     </gameContext.Provider>
   );

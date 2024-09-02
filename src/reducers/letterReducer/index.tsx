@@ -6,11 +6,12 @@ export type LetterState = {
   showLetter: boolean;
   correct: boolean;
   error: boolean;
+  gamePhase: number;
 };
 
 export type LetterAction =
   | { type: "next"; nextLetter: string }
-  | { type: "hideLetter" | "setCorrect" | "setError" | "reset" };
+  | { type: "hideLetter" | "setCorrect" | "setError" | "reset" | "nextGamePhase" };
 
 export const initialLetterState = {
   twoBackLetter: "",
@@ -20,6 +21,7 @@ export const initialLetterState = {
   showLetter: true,
   error: false,
   correct: false,
+  gamePhase: 1,
 };
 
 export function letterReducer(state: LetterState, action: LetterAction) {
@@ -34,6 +36,11 @@ export function letterReducer(state: LetterState, action: LetterAction) {
         showLetter: true,
         correct: false,
         error: false,
+      };
+    case "nextGamePhase":
+      return {
+        ...state,
+        gamePhase: state.gamePhase + 1,
       };
     case "hideLetter":
       return {
