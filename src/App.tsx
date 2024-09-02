@@ -1,4 +1,3 @@
-import { EventRegister } from "./components/EventRegister";
 import { GameScreen } from "./components/GameScreen";
 import { InsertNameScreen } from "./components/InsertNameScreen";
 import { ResultScreen } from "./components/ResultScreen";
@@ -13,8 +12,7 @@ const App = () => {
       <div className="w-3/4 md:w-1/3 p-2 rounded">
         {letterState.gamePhase === 1 && <InsertNameScreen />}
         {letterState.gamePhase === 2 && <GameScreen />}
-        {letterState.gamePhase === 3 && <ResultScreen />}
-        <EventRegister />
+        {letterState.gamePhase === 3 && <ResultScreen />}        
       </div>
     </main>
   );

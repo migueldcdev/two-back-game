@@ -11,15 +11,15 @@ export const GameScreen = () => {
         <SvgLoader />
       ) : (
         <div className="text-slate-700">
-          {letterState.correct || letterState.error ? (
-            <span className={letterState.correct ? "text-green-500" : "text-red-500"}>⌜&nbsp;&nbsp;⌝</span>
+          {letterState.userClickIsCorrect || letterState.userClickIsWrong ? (
+            <span className={letterState.userClickIsCorrect ? "text-green-500" : "text-red-500"}>⌜&nbsp;&nbsp;⌝</span>
           ) : (
             <span className="text-slate-400">⌜&nbsp;&nbsp;⌝</span>
           )}
 
           <div>{letterState.showLetter ? letterState.currentLetter : <span className="text-slate-300">*</span>}</div>
-          {letterState.correct || letterState.error ? (
-            <span className={letterState.correct ? "text-green-500" : "text-red-500"}>⌞&nbsp;&nbsp;⌟</span>
+          {letterState.userClickIsCorrect || letterState.userClickIsWrong ? (
+            <span className={letterState.userClickIsCorrect ? "text-green-500" : "text-red-500"}>⌞&nbsp;&nbsp;⌟</span>
           ) : (
             <span className="text-slate-400">⌞&nbsp;&nbsp;⌟</span>
           )}

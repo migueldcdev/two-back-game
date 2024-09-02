@@ -4,14 +4,16 @@ export type LetterState = {
   currentLetter: string;
   countCycle: number;
   showLetter: boolean;
-  correct: boolean;
-  error: boolean;
+  userClickIsCorrect: boolean;
+  userClickIsWrong: boolean;
   gamePhase: number;
+  correctAnswers: number;
+  wrongAnswers: number;
 };
 
 export type LetterAction =
   | { type: "next"; nextLetter: string }
-  | { type: "hideLetter" | "setCorrect" | "setError" | "reset" | "nextGamePhase" };
+  | { type: "hideLetter" | "setUserClickCorrect" | "setUserClickWrong" | "reset" | "nextGamePhase" | "incrementCorrectAnswer" | "incrementWrongAnswer" };
 
 export const initialLetterState = {
   twoBackLetter: "",
@@ -19,9 +21,11 @@ export const initialLetterState = {
   currentLetter: "",
   countCycle: 0,
   showLetter: true,
-  error: false,
-  correct: false,
+  userClickIsWrong: false,
+  userClickIsCorrect: false,
   gamePhase: 1,
+  correctAnswers: 0,
+  wrongAnswers: 0,
 };
 
 export function letterReducer(state: LetterState, action: LetterAction) {
@@ -34,7 +38,8 @@ export function letterReducer(state: LetterState, action: LetterAction) {
         currentLetter: action.nextLetter,
         countCycle: state.countCycle + 1,
         showLetter: true,
-        correct: false,
+        userClickIsCorrect: false,
+        userClickIsWrong: false,
         error: false,
       };
     case "nextGamePhase":
@@ -47,18 +52,28 @@ export function letterReducer(state: LetterState, action: LetterAction) {
         ...state,
         showLetter: false,
       };
-    case "setCorrect":
+    case "setUserClickCorrect":
       return {
         ...state,
-        correct: true,
-        error: false,
+        userClickIsCorrect: true,
+        userClickIsWrong: false,
       };
-    case "setError":
+    case "setUserClickWrong":
       return {
         ...state,
-        error: true,
-        correct: false,
+        userClickIsWrong: true,
+        userClickIsCorrect: false,
       };
+    case "incrementCorrectAnswer":
+      return {
+        ...state,
+        correctAnswers: state.correctAnswers + 1,
+      }
+    case "incrementWrongAnswer":
+      return {
+        ...state,
+        wrongAnswers: state.wrongAnswers + 1,
+      }  
     case "reset":
       return initialLetterState;
     default:
