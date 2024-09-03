@@ -17,7 +17,7 @@ export const GameScreen = () => {
             <span className="text-slate-400">⌜&nbsp;&nbsp;⌝</span>
           )}
 
-          <div>{gameState.showLetter ? gameState.currentLetter : <span className="text-slate-300">*</span>}</div>
+          <div>{gameState.showLetter ? gameState.currentLetter : <span>&nbsp;</span>}</div>
           {gameState.userClickIsCorrect || gameState.userClickIsWrong ? (
             <span className={gameState.userClickIsCorrect ? "text-green-500" : "text-red-500"}>⌞&nbsp;&nbsp;⌟</span>
           ) : (
