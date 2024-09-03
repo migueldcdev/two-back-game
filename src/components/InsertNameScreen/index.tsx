@@ -4,46 +4,43 @@ import { useGameContext } from "../../context/GameContext";
 export const InsertNameScreen = () => {
   const { gameDispatch } = useGameContext();
 
-  const [name, setName] = useState("");
+  const [name, setName] = useState(""); 
 
-  const nameLength = name.length;
-
-  function handleInputName(value: string) {
-    setName(value);
+  function handleSubmit() {    
+    gameDispatch({ type: "setUserName", userName: name });
   }
 
   return (
     <section>
       <div className="flex items-center justify-center flex-col">
-        <p className="text-slate-600  text-xl">Enter your name and press start:</p>
-        <label className="text-xs mt-2 text-slate-600 mb-1" htmlFor="name">
-          Your name
-        </label>
-        <input
-          className="p-2 bg-slate-400 rounded"
-          type="text"
-          id="name"
-          autoFocus
-          placeholder="Jane"
-          onChange={(e) => {
-            handleInputName(e.target.value);
+        <p className="text-slate-800 text-xl">Enter your name and press start:</p>
+        <form 
+          className="flex flex-col mt-4"
+          onSubmit={() => {
+            handleSubmit();
           }}
-        />
-        {/* Button just one */}
-        {nameLength < 1 ? (
-          <button className="px-4 py-2 bg-green-300 rounded text-white text-xl mt-4" disabled>
-            Start
-          </button>
-        ) : (
-          <button
-            className="px-4 py-2 bg-green-500 rounded text-white text-xl mt-4"
-            onClick={() => {
-              gameDispatch({ type: "nextGamePhase" });
+        >
+          <label className="text-xs mt-2 text-slate-800 mb-1" htmlFor="name">
+            Your name
+          </label>
+          <input
+            className="p-2 bg-slate-500 rounded placeholder-slate-400 text-slate-200"
+            type="text"
+            id="name"
+            autoFocus
+            placeholder="e.g. Jane"
+            onChange={(e) => {
+             setName(e.target.value)
             }}
-          >
-            Start
-          </button>
-        )}
+            required
+          />
+          <input
+            type="submit"
+            value={"Start"}
+            className="px-4 py-2 bg-green-500 rounded text-white text-xl mt-4"            
+          />
+           
+        </form>
       </div>
       <article className="p-4 mx-6 my-4 bg-slate-600 text-slate-200 rounded text-sm mt-12">
         <h2 className="text-xl">Instructions</h2>

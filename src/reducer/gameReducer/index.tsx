@@ -1,4 +1,5 @@
 export type GameState = {
+  userName: string;
   twoBackLetter: string;
   previousLetter: string;
   currentLetter: string;
@@ -13,6 +14,7 @@ export type GameState = {
 
 export type GameAction =
   | { type: "next"; nextLetter: string }
+  | {type: "setUserName"; userName: string}
   | {
       type:
         | "hideLetter"
@@ -25,6 +27,7 @@ export type GameAction =
     };
 
 export const initialGameState = {
+  userName: "",
   twoBackLetter: "",
   previousLetter: "",
   currentLetter: "",
@@ -39,6 +42,12 @@ export const initialGameState = {
 
 export function gameReducer(state: GameState, action: GameAction) {
   switch (action.type) {
+    case "setUserName":
+      return {
+        ...state,
+        userName: action.userName,
+        gamePhase: state.gamePhase + 1,
+      }
     case "next":
       return {
         ...state,

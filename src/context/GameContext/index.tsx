@@ -7,7 +7,7 @@ import { generateLetter } from "../../utils/letterGenerator";
 export type Context = {
   gameState: GameState;
   gameDispatch: (type: GameAction) => void;
-  handleUserClick: () => void;
+  checkUserClickResult: () => void;
 };
 
 export const gameContext = createContext<Context | null>(null);
@@ -37,17 +37,7 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
     } else {
       handleIncorrectGuess();
     }
-  }
-
-  function resetGame() {
-    gameDispatch({ type: "reset" });
-  }
-
-  function handleUserClick() {
-    if (gameState.gamePhase === 1) return;
-    if (gameState.gamePhase === 2) checkUserClickResult();
-    if (gameState.gamePhase === 3) resetGame();
-  }
+  }  
 
   const handleUserOmission = useCallback(() => {
     if (gameState.userClickIsCorrect || gameState.userClickIsWrong) return;
@@ -86,7 +76,7 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
     return () => clearTimeout(timeOutNextLetter);
   }, [gameState, handleUserOmission]);
 
-  return <gameContext.Provider value={{ gameState, gameDispatch, handleUserClick }}>{children}</gameContext.Provider>;
+  return <gameContext.Provider value={{ gameState, gameDispatch, checkUserClickResult }}>{children}</gameContext.Provider>;
 };
 
 export const useGameContext = () => {

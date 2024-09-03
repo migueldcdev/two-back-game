@@ -1,7 +1,7 @@
 import { useGameContext } from "../../context/GameContext";
 
 export const ResultScreen = () => {
-  const { gameState } = useGameContext();
+  const { gameState, gameDispatch } = useGameContext();
 
   return (
     <section>
@@ -15,7 +15,12 @@ export const ResultScreen = () => {
         </p>
       </article>
       <div className="p-3 mt-10 text-center text-slate-600">
-        <p>Click anywhere to restart game.</p>
+       <button 
+        className="px-4 py-2 bg-green-500 rounded text-white text-xl mt-4"
+        onClick={() => gameDispatch({type: 'reset'})}
+       >
+          Restart game
+        </button>
       </div>
     </section>
   );
