@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useGameContext } from "../../context/GameContext";
 
-import toggleOnUrl from '../../assets/toggle-on.png';
-import toggleOffUrl from '../../assets/toggle-off.png'
+import toggleOffUrl from "../../assets/toggle-off.png";
+import toggleOnUrl from "../../assets/toggle-on.png";
 
 export const InsertNameScreen = () => {
   const { gameState, gameDispatch } = useGameContext();
@@ -12,7 +12,7 @@ export const InsertNameScreen = () => {
   function handleSubmit() {
     gameDispatch({ type: "setUserName", userName: name });
   }
-  
+
   return (
     <section>
       <div className="flex items-center justify-center flex-col">
@@ -58,12 +58,8 @@ export const InsertNameScreen = () => {
       </article>
       <div className="flex justify-end gap-4 p-6">
         <p className="mt-3 text-slate-800">Activate analytics</p>
-        <button onClick={() => gameDispatch({ type: 'setAnalytics' })}>
-          <img
-            src={gameState.analytics ? toggleOnUrl : toggleOffUrl}
-            width={'50px'}
-            className="cursor-pointer"
-          />
+        <button onClick={() => gameDispatch({ type: "setAnalytics" })}>
+          <img src={gameState.analytics ? toggleOnUrl : toggleOffUrl} width={"50px"} className="cursor-pointer" />
         </button>
       </div>
     </section>

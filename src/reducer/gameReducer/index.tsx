@@ -10,7 +10,7 @@ export type GameState = {
   gamePhase: number;
   correctAnswers: number;
   wrongAnswers: number;
-  analytics: boolean
+  analytics: boolean;
 };
 
 export type GameAction =
@@ -36,7 +36,7 @@ export const initialGameState = {
   countCycle: 0,
   showLetter: true,
   userClickIsCorrect: false,
-  userClickIsWrong: false,  
+  userClickIsWrong: false,
   gamePhase: 1,
   correctAnswers: 0,
   wrongAnswers: 0,
@@ -97,13 +97,13 @@ export function gameReducer(state: GameState, action: GameAction) {
       };
     case "reset":
       return initialGameState;
-    
-    case "setAnalytics":      
+
+    case "setAnalytics":
       return {
         ...state,
         analytics: !state.analytics,
-      };  
-    
+      };
+
     default:
       return state;
   }

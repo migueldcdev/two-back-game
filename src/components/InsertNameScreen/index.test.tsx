@@ -3,7 +3,7 @@ import { describe, expect, test } from "vitest";
 import { InsertNameScreen } from ".";
 import { render, screen } from "../../context/GameContext/testGameContext";
 
-const context = {   
+const context = {
   gameState: {
     userName: "",
     twoBackLetter: "",
@@ -18,7 +18,7 @@ const context = {
     wrongAnswers: 0,
   },
   gameDispatch: () => {},
-  checkUserClickResult: () => {},  
+  checkUserClickResult: () => {},
 };
 
 describe("Test suite InsertNameScreen component", () => {

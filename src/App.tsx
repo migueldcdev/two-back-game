@@ -1,3 +1,4 @@
+import { Analytics } from "./components/Analytics";
 import { GameScreen } from "./components/GameScreen";
 import { InsertNameScreen } from "./components/InsertNameScreen";
 import { ResultScreen } from "./components/ResultScreen";
@@ -14,6 +15,7 @@ const App = () => {
         {gameState.gamePhase === 2 && <GameScreen />}
         {gameState.gamePhase === 3 && <ResultScreen />}
       </div>
+      <Analytics />
     </main>
   );
 };
