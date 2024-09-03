@@ -1,15 +1,18 @@
 import { useState } from "react";
 import { useGameContext } from "../../context/GameContext";
 
+import toggleOnUrl from '../../assets/toggle-on.png';
+import toggleOffUrl from '../../assets/toggle-off.png'
+
 export const InsertNameScreen = () => {
-  const { gameDispatch } = useGameContext();
+  const { gameState, gameDispatch } = useGameContext();
 
   const [name, setName] = useState("");
 
   function handleSubmit() {
     gameDispatch({ type: "setUserName", userName: name });
   }
-
+  
   return (
     <section>
       <div className="flex items-center justify-center flex-col">
@@ -48,11 +51,21 @@ export const InsertNameScreen = () => {
           same letter two letters ago.
         </p>
         <p className="mt-2">
-          If you saw the same letter 2 letters ago, you click or tap on the screen. If you did correctly, you see{" "}
+          If you saw the same letter 2 letters ago, you click on the big green button. If you did correctly, you see{" "}
           <span className="text-green-500">green</span> colors around the letter, otherwise you will see{" "}
           <span className="text-red-500">red</span> around the letter.
         </p>
       </article>
+      <div className="flex justify-end gap-4 p-6">
+        <p className="mt-3 text-slate-800">Activate analytics</p>
+        <button onClick={() => gameDispatch({ type: 'setAnalytics' })}>
+          <img
+            src={gameState.analytics ? toggleOnUrl : toggleOffUrl}
+            width={'50px'}
+            className="cursor-pointer"
+          />
+        </button>
+      </div>
     </section>
   );
 };

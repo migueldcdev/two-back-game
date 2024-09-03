@@ -3,21 +3,22 @@ import { describe, expect, test } from "vitest";
 import { InsertNameScreen } from ".";
 import { render, screen } from "../../context/GameContext/testGameContext";
 
-const context = {
-  gamePhaseState: { phase: 0 },
-  gamePhaseDispatch: () => {},
-  letterState: {
+const context = {   
+  gameState: {
+    userName: "",
     twoBackLetter: "",
     previousLetter: "",
     currentLetter: "",
     countCycle: 0,
     showLetter: true,
-    correct: false,
-    error: false,
+    userClickIsWrong: false,
+    userClickIsCorrect: false,
+    gamePhase: 1,
+    correctAnswers: 0,
+    wrongAnswers: 0,
   },
-  letterDispatch: () => {},
-  handleUserClick: () => {},
-  guessesState: { correct: 0, error: 0 },
+  gameDispatch: () => {},
+  checkUserClickResult: () => {},  
 };
 
 describe("Test suite InsertNameScreen component", () => {
@@ -34,7 +35,7 @@ describe("Test suite InsertNameScreen component", () => {
 
     render(<InsertNameScreen />, context);
 
-    const input = screen.getByPlaceholderText("Jane");
+    const input = screen.getByPlaceholderText("e.g. Jane");
 
     await user.type(input, "John");
   });

@@ -10,6 +10,7 @@ export type GameState = {
   gamePhase: number;
   correctAnswers: number;
   wrongAnswers: number;
+  analytics: boolean
 };
 
 export type GameAction =
@@ -23,7 +24,8 @@ export type GameAction =
         | "reset"
         | "nextGamePhase"
         | "incrementCorrectAnswer"
-        | "incrementWrongAnswer";
+        | "incrementWrongAnswer"
+        | "setAnalytics";
     };
 
 export const initialGameState = {
@@ -33,11 +35,12 @@ export const initialGameState = {
   currentLetter: "",
   countCycle: 0,
   showLetter: true,
-  userClickIsWrong: false,
   userClickIsCorrect: false,
+  userClickIsWrong: false,  
   gamePhase: 1,
   correctAnswers: 0,
   wrongAnswers: 0,
+  analytics: false,
 };
 
 export function gameReducer(state: GameState, action: GameAction) {
@@ -94,6 +97,13 @@ export function gameReducer(state: GameState, action: GameAction) {
       };
     case "reset":
       return initialGameState;
+    
+    case "setAnalytics":      
+      return {
+        ...state,
+        analytics: !state.analytics,
+      };  
+    
     default:
       return state;
   }

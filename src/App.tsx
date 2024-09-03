@@ -8,7 +8,7 @@ const App = () => {
   const { gameState } = useGameContext();
 
   return (
-    <main className="flex items-center justify-center h-screen bg-slate-300">
+    <main className="flex items-center justify-center h-screen">
       <div className="w-3/4 md:w-1/3 p-2 rounded">
         {gameState.gamePhase === 1 && <InsertNameScreen />}
         {gameState.gamePhase === 2 && <GameScreen />}
