@@ -24,7 +24,7 @@ export const GameScreen = () => {
             <span className="text-slate-400">⌞&nbsp;&nbsp;⌟</span>
           )}
           <button
-            className="px-4 py-6 bg-green-500 rounded text-white text-xl mt-16"
+            className="px-4 py-6 bg-green-500 rounded text-white text-xl mt-16 cursor-pointer hover:bg-green-600"
             onClick={() => checkUserClickResult()}
           >
             Check Two Back

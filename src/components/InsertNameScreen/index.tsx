@@ -34,7 +34,11 @@ export const InsertNameScreen = () => {
             }}
             required
           />
-          <input type="submit" value={"Start"} className="px-4 py-2 bg-green-500 rounded text-white text-xl mt-4" />
+          <input
+            type="submit"
+            value={"Start"}
+            className="px-4 py-2 bg-green-500 rounded text-white text-xl mt-4 cursor-pointer hover:bg-green-600"
+          />
         </form>
       </div>
       <article className="p-4 mx-6 my-4 bg-slate-600 text-slate-200 rounded text-sm mt-12">
