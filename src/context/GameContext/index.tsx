@@ -1,19 +1,19 @@
 import React, { createContext, useCallback, useContext, useEffect, useReducer } from "react";
 
-import { initialGameState, GameAction, gameReducer, GameState } from "../../reducers/gameReducer";
+import { GameAction, gameReducer, GameState, initialGameState } from "../../reducer/gameReducer";
 
 import { generateLetter } from "../../utils/letterGenerator";
 
 export type Context = {
   gameState: GameState;
   gameDispatch: (type: GameAction) => void;
-  handleUserClick: () => void; 
+  handleUserClick: () => void;
 };
 
 export const gameContext = createContext<Context | null>(null);
 
 export const GameContext = ({ children }: { children: React.ReactNode }) => {
-  const [gameState, gameDispatch] = useReducer(gameReducer, initialGameState);  
+  const [gameState, gameDispatch] = useReducer(gameReducer, initialGameState);
 
   function handleCorrectGuess() {
     if (gameState.userClickIsCorrect) return;
@@ -40,7 +40,7 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
   }
 
   function resetGame() {
-    gameDispatch({ type: "reset" });    
+    gameDispatch({ type: "reset" });
   }
 
   function handleUserClick() {
@@ -62,7 +62,7 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
     }
 
     gameDispatch({ type: "incrementCorrectAnswer" });
-  }, [gameState, gameState]);
+  }, [gameState]);
 
   function handleShowLetter() {
     const timeOutShowLetter = setTimeout(() => {
@@ -86,11 +86,7 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
     return () => clearTimeout(timeOutNextLetter);
   }, [gameState, handleUserOmission]);
 
-  return (
-    <gameContext.Provider value={{ gameState, gameDispatch, handleUserClick }}>
-      {children}
-    </gameContext.Provider>
-  );
+  return <gameContext.Provider value={{ gameState, gameDispatch, handleUserClick }}>{children}</gameContext.Provider>;
 };
 
 export const useGameContext = () => {

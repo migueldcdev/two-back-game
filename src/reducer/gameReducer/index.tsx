@@ -13,7 +13,16 @@ export type GameState = {
 
 export type GameAction =
   | { type: "next"; nextLetter: string }
-  | { type: "hideLetter" | "setUserClickCorrect" | "setUserClickWrong" | "reset" | "nextGamePhase" | "incrementCorrectAnswer" | "incrementWrongAnswer" };
+  | {
+      type:
+        | "hideLetter"
+        | "setUserClickCorrect"
+        | "setUserClickWrong"
+        | "reset"
+        | "nextGamePhase"
+        | "incrementCorrectAnswer"
+        | "incrementWrongAnswer";
+    };
 
 export const initialGameState = {
   twoBackLetter: "",
@@ -68,12 +77,12 @@ export function gameReducer(state: GameState, action: GameAction) {
       return {
         ...state,
         correctAnswers: state.correctAnswers + 1,
-      }
+      };
     case "incrementWrongAnswer":
       return {
         ...state,
         wrongAnswers: state.wrongAnswers + 1,
-      }  
+      };
     case "reset":
       return initialGameState;
     default:

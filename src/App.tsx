@@ -12,7 +12,7 @@ const App = () => {
       <div className="w-3/4 md:w-1/3 p-2 rounded">
         {gameState.gamePhase === 1 && <InsertNameScreen />}
         {gameState.gamePhase === 2 && <GameScreen />}
-        {gameState.gamePhase === 3 && <ResultScreen />}        
+        {gameState.gamePhase === 3 && <ResultScreen />}
       </div>
     </main>
   );
