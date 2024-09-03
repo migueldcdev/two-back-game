@@ -14,7 +14,7 @@ export type GameState = {
 
 export type GameAction =
   | { type: "next"; nextLetter: string }
-  | {type: "setUserName"; userName: string}
+  | { type: "setUserName"; userName: string }
   | {
       type:
         | "hideLetter"
@@ -47,7 +47,7 @@ export function gameReducer(state: GameState, action: GameAction) {
         ...state,
         userName: action.userName,
         gamePhase: state.gamePhase + 1,
-      }
+      };
     case "next":
       return {
         ...state,

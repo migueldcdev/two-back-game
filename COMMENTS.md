@@ -1,5 +1,7 @@
 31/08/24
+
 # NOTES
+
 - Merge all reducers in one ✅
 - Improve contrast ✅
 - Keyboard accesibility ✅
@@ -13,6 +15,7 @@
 - Rename error in reducer ✅
 
 # NOTES
+
 - Don't get to clever with the design
 - Multiple page app -> next.js or remix SSR for Performance and SEO
 - SPA -> Vite

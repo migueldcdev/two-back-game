@@ -37,7 +37,7 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
     } else {
       handleIncorrectGuess();
     }
-  }  
+  }
 
   const handleUserOmission = useCallback(() => {
     if (gameState.userClickIsCorrect || gameState.userClickIsWrong) return;
@@ -76,7 +76,9 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
     return () => clearTimeout(timeOutNextLetter);
   }, [gameState, handleUserOmission]);
 
-  return <gameContext.Provider value={{ gameState, gameDispatch, checkUserClickResult }}>{children}</gameContext.Provider>;
+  return (
+    <gameContext.Provider value={{ gameState, gameDispatch, checkUserClickResult }}>{children}</gameContext.Provider>
+  );
 };
 
 export const useGameContext = () => {
