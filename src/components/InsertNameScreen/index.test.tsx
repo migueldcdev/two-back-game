@@ -16,6 +16,7 @@ const context = {
     gamePhase: 1,
     correctAnswers: 0,
     wrongAnswers: 0,
+    analytics: false,
   },
   gameDispatch: () => {},
   checkUserClickResult: () => {},
