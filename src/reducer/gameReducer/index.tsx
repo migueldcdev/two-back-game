@@ -112,7 +112,7 @@ export function gameReducer(state: GameState, action: GameAction) {
     case "setNotification":
       return {
         ...state,
-        notification: action.notification,
+        notification: action.notification + `\n Timestamp: ${Date.now()}`,
       };
     default:
       return state;

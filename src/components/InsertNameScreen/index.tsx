@@ -11,19 +11,14 @@ export const InsertNameScreen = () => {
 
   function handleSubmit() {
     gameDispatch({ type: "setUserName", userName: name });
-    gameDispatch({ type: "setNotification", notification: "Start button clicked" });
+    gameDispatch({ type: "setNotification", notification: "User clicked start button" });
   }
 
   return (
     <section>
       <div className="flex items-center justify-center flex-col">
         <p className="text-slate-800 text-xl">Enter your name and press start:</p>
-        <form
-          className="flex flex-col mt-4"
-          onSubmit={() => {
-            handleSubmit();
-          }}
-        >
+        <form className="flex flex-col mt-4" onSubmit={handleSubmit}>
           <label className="text-xs mt-2 text-slate-800 mb-1" htmlFor="name">
             Your name
           </label>
