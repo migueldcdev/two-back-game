@@ -11,6 +11,7 @@ export type GameState = {
   correctAnswers: number;
   wrongAnswers: number;
   analytics: boolean;
+  notification: string;
 };
 
 export type GameAction =
@@ -26,7 +27,8 @@ export type GameAction =
         | "incrementCorrectAnswer"
         | "incrementWrongAnswer"
         | "setAnalytics";
-    };
+    }
+  | { type: "setNotification"; notification: string };
 
 export const initialGameState = {
   userName: "",
@@ -41,6 +43,7 @@ export const initialGameState = {
   correctAnswers: 0,
   wrongAnswers: 0,
   analytics: false,
+  notification: "",
 };
 
 export function gameReducer(state: GameState, action: GameAction) {
@@ -103,7 +106,11 @@ export function gameReducer(state: GameState, action: GameAction) {
         ...state,
         analytics: !state.analytics,
       };
-
+    case "setNotification":
+      return {
+        ...state,
+        notification: action.notification,
+      };
     default:
       return state;
   }
