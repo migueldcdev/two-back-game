@@ -99,7 +99,10 @@ export function gameReducer(state: GameState, action: GameAction) {
         wrongAnswers: state.wrongAnswers + 1,
       };
     case "reset":
-      return initialGameState;
+      return {
+        ...initialGameState,
+        analytics: state.analytics,
+      };
 
     case "setAnalytics":
       return {

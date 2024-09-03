@@ -11,6 +11,7 @@ export const InsertNameScreen = () => {
 
   function handleSubmit() {
     gameDispatch({ type: "setUserName", userName: name });
+    gameDispatch({ type: "setNotification", notification: "Start button clicked" });
   }
 
   return (

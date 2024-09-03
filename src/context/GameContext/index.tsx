@@ -32,11 +32,13 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
 
   function checkUserClickResult() {
     const isCorrect = gameState.currentLetter === gameState.twoBackLetter;
+
     if (isCorrect) {
       handleCorrectGuess();
     } else {
       handleIncorrectGuess();
     }
+    gameDispatch({ type: "setNotification", notification: "User clicked two back button" });
   }
 
   const handleUserOmission = useCallback(() => {
