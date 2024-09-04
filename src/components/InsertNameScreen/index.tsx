@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useGameContext } from "../../context/GameContext";
 
 import toggleOffUrl from "../../assets/toggle-off.png";
@@ -9,7 +9,8 @@ export const InsertNameScreen = () => {
 
   const [name, setName] = useState("");
 
-  function handleSubmit() {
+  function handleSubmit(e: FormEvent) {
+    e.preventDefault();
     gameDispatch({ type: "setUserName", userName: name });
     gameDispatch({ type: "setNotification", notification: "User clicked start button" });
   }
@@ -18,7 +19,7 @@ export const InsertNameScreen = () => {
     <section>
       <div className="flex items-center justify-center flex-col">
         <p className="text-slate-800 text-xl">Enter your name and press start:</p>
-        <form className="flex flex-col mt-4" onSubmit={handleSubmit}>
+        <form className="flex flex-col mt-4" onSubmit={(e) => handleSubmit(e)}>
           <label className="text-xs mt-2 text-slate-800 mb-1" htmlFor="name">
             Your name
           </label>
@@ -53,9 +54,16 @@ export const InsertNameScreen = () => {
         </p>
       </article>
       <div className="flex justify-end gap-4 p-6">
-        <p className="mt-3 text-slate-800">Activate analytics</p>
-        <button onClick={() => gameDispatch({ type: "setAnalytics" })}>
-          <img src={gameState.analytics ? toggleOnUrl : toggleOffUrl} width={"50px"} className="cursor-pointer" />
+        <label htmlFor="toggle-button" className="mt-3 text-slate-800">
+          Activate analytics
+        </label>
+        <button id="toggle-button" onClick={() => gameDispatch({ type: "setAnalytics" })}>
+          <img
+            src={gameState.analytics ? toggleOnUrl : toggleOffUrl}
+            width={"50px"}
+            className="cursor-pointer"
+            alt={gameState.analytics ? "button toggled on" : "button toggled off"}
+          />
         </button>
       </div>
     </section>
