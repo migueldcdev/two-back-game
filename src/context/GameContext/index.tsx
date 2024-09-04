@@ -16,33 +16,33 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
   const [gameState, gameDispatch] = useReducer(gameReducer, initialGameState);
 
   function handleCorrectGuess() {
-    if (gameState.userClickIsCorrect) return;
-
     gameDispatch({ type: "incrementCorrectAnswer" });
     gameDispatch({ type: "setUserClickCorrect" });
   }
 
   function handleIncorrectGuess() {
-    if (gameState.userClickIsWrong) return;
-
     gameDispatch({ type: "incrementWrongAnswer" });
     gameDispatch({ type: "setUserClickWrong" });
-    if (gameState.wrongAnswers > 0) gameDispatch({ type: "nextGamePhase" });
   }
 
   function checkUserClickResult() {
+    gameDispatch({ type: "setNotification", notification: "User clicked two back button" });
+    const hasUserAlreadyClicked = gameState.userClickIsCorrect || gameState.userClickIsWrong;
+    if (hasUserAlreadyClicked) return;
+
     const isCorrect = gameState.currentLetter === gameState.twoBackLetter;
 
     if (isCorrect) {
       handleCorrectGuess();
     } else {
       handleIncorrectGuess();
+      if (gameState.wrongAnswers > 0) gameDispatch({ type: "nextGamePhase" });
     }
-    gameDispatch({ type: "setNotification", notification: "User clicked two back button" });
   }
 
   const handleUserOmission = useCallback(() => {
-    if (gameState.userClickIsCorrect || gameState.userClickIsWrong) return;
+    const hasUserAlreadyClicked = gameState.userClickIsCorrect || gameState.userClickIsWrong;
+    if (hasUserAlreadyClicked) return;
 
     const isAnOmissionError = gameState.currentLetter === gameState.twoBackLetter;
 
