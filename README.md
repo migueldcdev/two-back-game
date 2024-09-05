@@ -22,15 +22,33 @@ npm run dev
 
 ### Testing
 
-To run the test suite, use:
+To run the test suite and ensure everything is functioning correctly, use:
 
 ```bash
 npm run test
 ```
 
-### Code formating
+To run playwright:
 
-To format your code using Prettier, run:
+```bash
+npx playwright test
+```
+
+To run playwright in a specific browser:
+
+```bash
+npx playwright test --project=chromium
+```
+
+To run playwiright in UI mode:
+
+```bash
+npx playwright test --ui
+```
+
+### Code formatting
+
+To format your code using Prettier, execute:
 
 ```bash
 npx prettier . --write

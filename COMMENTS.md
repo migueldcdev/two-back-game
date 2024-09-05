@@ -9,9 +9,9 @@
 - Refactor conditional rendering button disabled ✅
 - Rename phase ✅
 - Remove hard coded values ✅
-- Redesing analytics component
-- Unit testing
-- E2E testing
+- Redesing analytics component ✅
+- Unit testing ✅
+- E2E testing ✅
 - Rename error in reducer ✅
 
 # NOTES
