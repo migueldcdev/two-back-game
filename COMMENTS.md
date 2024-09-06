@@ -31,7 +31,7 @@
 - Move the test context to test utils ✅
 - Change the name analytics (it is very generic) ✅
 - Don`t test the html
-- InsertNameScreen tests could be just one test
+- InsertNameScreen tests could be just one test ✅
 - Call action something the user would understand ✅
 
 # NOTES

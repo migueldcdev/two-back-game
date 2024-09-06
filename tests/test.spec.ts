@@ -60,6 +60,6 @@ test("user activates analytics and plays game", async ({ page }) => {
   expect(inputName).toBeInViewport();
 
   //page shows analytics event toast
-  const resetButtonClickedToast = page.getByText("User clicked reset button");
+  const resetButtonClickedToast = page.getByText("User clicked restart button");
   expect(resetButtonClickedToast).toBeInViewport();
 });

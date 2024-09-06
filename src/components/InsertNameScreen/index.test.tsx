@@ -23,24 +23,9 @@ const context = {
   checkUserClickResult: () => {},
 };
 
-describe("Test suite InsertNameScreen component", () => {
-  test("it should render input name", () => {
-    render(<InsertNameScreen />, context);
+describe("Test suite InsertNameScreen component", () => {  
 
-    const input = screen.getByPlaceholderText("e.g. Jane");
-
-    expect(input).toBeDefined();
-  });
-
-  test("it should render input button", () => {
-    render(<InsertNameScreen />, context);
-
-    const button = screen.getByText("Start");
-
-    expect(button).toBeDefined();
-  });
-
-  test("should write name to input and click button", async () => {
+  test("should write name to input, click button and toggle analytics button", async () => {
     const user = userEvent.setup();
 
     const gameDispatch = vi.fn();
@@ -51,38 +36,20 @@ describe("Test suite InsertNameScreen component", () => {
 
     await user.type(input, "John");
 
-    const button = screen.getByText("Start");
+    const button = screen.getByRole('button', {name: "Start"});
 
     await user.click(button);
 
-    expect(gameDispatch).toBeCalled();
-  });
-
-  test("should render instructions", () => {
-    render(<InsertNameScreen />, context);
-    const instructions = screen.getByText("Instructions");
-    expect(instructions).toBeDefined();
-  });
-
-  test("should render toggle analytics button", () => {
-    render(<InsertNameScreen />, context);
-
-    const toggleButton = screen.getByLabelText("Activate analytics");
-
-    expect(toggleButton).toBeDefined();
-  });
-
-  test("toggle analytics button should work", async () => {
-    const user = userEvent.setup();
-
-    const gameDispatch = vi.fn();
-
-    render(<InsertNameScreen />, { ...context, gameDispatch });
+    expect(gameDispatch).toBeCalledWith(
+      {"type": "START_GAME", "userName": "John"}
+    );
 
     const toggleButton = screen.getByLabelText("Activate analytics");
 
     await user.click(toggleButton);
 
-    expect(gameDispatch).toBeCalled();
+    expect(gameDispatch).toBeCalledWith({"type": "SET_ANALYTICS_NOTIFICATIONS"});
   });
 });
+ 
+
