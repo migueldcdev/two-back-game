@@ -21,9 +21,9 @@
 - Refactor toast function inside useEffect ✅
 - Deconstruct gameState for cleaner code.
 - Set linter to give array dependencies warnings ✅
-- Refactor game corners color logic (TailwinCSS does not handle well conditional styles)
+- Refactor game corners color logic ✅
 - Substitute toBeDefine for toBeInTheDocument
-- Fix userEvent initialization
+- Fix userEvent initialization ✅
 - Make the context specific to each test, not one for all.
 - Functions that are call with parameters, use ToBeCalledWith.
 - Refactor the reducer, combine actions when there are one dispatch after the other
