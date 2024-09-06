@@ -1,7 +1,7 @@
 import userEvent from "@testing-library/user-event";
 import { describe, expect, test, vi } from "vitest";
 import { ResultScreen } from ".";
-import { render, screen } from "../../context/GameContext/testGameContext";
+import { render, screen } from "../../test-utils/testGameContext";
 
 const context = {
   gameState: {

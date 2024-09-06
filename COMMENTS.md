@@ -20,7 +20,7 @@
 - Use words instead of numbers for phase state.
 - Refactor toast function inside useEffect ✅
 - Deconstruct gameState for cleaner code.
-- Set linter to give array dependencies warnings
+- Set linter to give array dependencies warnings ✅
 - Refactor game corners color logic (TailwinCSS does not handle well conditional styles)
 - Substitute toBeDefine for toBeInTheDocument
 - Fix userEvent initialization
@@ -28,7 +28,7 @@
 - Functions that are call with parameters, use ToBeCalledWith.
 - Refactor the reducer, combine actions when there are one dispatch after the other
 - Uppercase underscore for action types
-- Move the test context to test utils
+- Move the test context to test utils ✅
 - Change the name analytics (it is very generic)
 - Don`t test the html
 - InsertNameScreen tests could be just one test
