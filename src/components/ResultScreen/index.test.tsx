@@ -22,12 +22,7 @@ const context = {
   gameDispatch: () => {},
   checkUserClickResult: () => {},
 };
-describe("Test suite for ResultScreen component", () => {
-  test("it should render", () => {
-    render(<ResultScreen />, context);
-    const resultsTitle = screen.getByText("RESULTS");
-    expect(resultsTitle).toBeDefined();
-  });
+describe("Test suite for ResultScreen component", () => {  
 
   test("it should render corrects and wrongs score", () => {
     render(<ResultScreen />, context);
@@ -43,6 +38,6 @@ describe("Test suite for ResultScreen component", () => {
     render(<ResultScreen />, { ...context, gameDispatch });
     const restartGameButton = screen.getByRole("button");
     await user.click(restartGameButton);
-    expect(gameDispatch).toBeCalled();
+    expect(gameDispatch).toBeCalledWith({ "type": "RESTART_GAME"});
   });
 });

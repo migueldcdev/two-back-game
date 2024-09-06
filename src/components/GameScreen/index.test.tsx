@@ -35,7 +35,7 @@ describe("Test suite for GameScreen component", () => {
     const checkUserClickResult = vi.fn();
     render(<GameScreen />, { ...context, checkUserClickResult });
 
-    const twoBackButton = screen.getByRole("button");
+    const twoBackButton = screen.getByRole("button", {name: "Two Back"});
 
     await user.click(twoBackButton);
 

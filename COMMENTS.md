@@ -22,15 +22,15 @@
 - Deconstruct gameState for cleaner code ✅
 - Set linter to give array dependencies warnings ✅
 - Refactor game corners color logic ✅
-- Substitute toBeDefine for toBeInTheDocument
+- Substitute toBeDefine for toBeInTheDocument ❌ (don't exists in vitest)
 - Fix userEvent initialization ✅
 - Make the context specific to each test, not one for all.
-- Functions that are call with parameters, use ToBeCalledWith.
+- Functions that are call with parameters, use ToBeCalledWith ✅
 - Refactor the reducer, combine actions when there are one dispatch after the other ✅
 - Uppercase underscore for action types ✅
 - Move the test context to test utils ✅
 - Change the name analytics (it is very generic) ✅
-- Don`t test the html
+- Don`t test the html ✅
 - InsertNameScreen tests could be just one test ✅
 - Call action something the user would understand ✅
 

@@ -3,7 +3,7 @@ import { useGameContext } from "../../context/GameContext";
 export const ResultScreen = () => {
   const { gameState, gameDispatch } = useGameContext();
 
-  const { correctAnswers, wrongAnswers } = gameState;
+  const { correctAnswers, wrongAnswers } = gameState;  
 
   return (
     <section>

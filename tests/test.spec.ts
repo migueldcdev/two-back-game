@@ -23,14 +23,13 @@ test("user activates analytics and plays game", async ({ page }) => {
 
   //user waits until game start
   const getReadyParagraph = page.getByRole("paragraph", { name: "Get ready!" });
-  expect(getReadyParagraph).toBeDefined();
-
+  expect(getReadyParagraph).toBeInViewport();
+  
   //user starts game
-  const twoBackButton = page.getByRole("button");
-  expect(twoBackButton).toBeDefined();
+  const twoBackButton = page.getByRole("button"); 
+  await twoBackButton.click();
 
   //user mistake click
-  await twoBackButton.click();
   const topGameCorner = page.getByText("⌜");
   expect(topGameCorner).toHaveClass("text-red-500");
 
@@ -46,7 +45,7 @@ test("user activates analytics and plays game", async ({ page }) => {
 
   //app go to results page
   const results = page.getByRole("paragraph", { name: "RESULTS" });
-  expect(results).toBeDefined();
+  expect(results).toBeInViewport();
 
   //result page should show correct and wrong results
   const correctCount = page.getByRole("paragraph", { name: "Correct: 0" });
