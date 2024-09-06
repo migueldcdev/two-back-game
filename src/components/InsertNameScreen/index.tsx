@@ -7,12 +7,13 @@ import toggleOnUrl from "../../assets/toggle-on.png";
 export const InsertNameScreen = () => {
   const { gameState, gameDispatch } = useGameContext();
 
+  const { showAnalyticsNotifications } = gameState;
+
   const [name, setName] = useState("");
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    gameDispatch({ type: "setUserName", userName: name });
-    gameDispatch({ type: "setNotification", notification: "User clicked start button" });
+    gameDispatch({ type: "START_GAME", userName: name });    
   }
 
   return (
@@ -57,12 +58,12 @@ export const InsertNameScreen = () => {
         <label htmlFor="toggle-button" className="mt-3 text-slate-800">
           Activate analytics
         </label>
-        <button id="toggle-button" onClick={() => gameDispatch({ type: "setAnalytics" })}>
+        <button id="toggle-button" onClick={() => gameDispatch({ type: "SET_ANALYTICS_NOTIFICATIONS" })}>
           <img
-            src={gameState.analytics ? toggleOnUrl : toggleOffUrl}
+            src={showAnalyticsNotifications ? toggleOnUrl : toggleOffUrl}
             width={"50px"}
             className="cursor-pointer"
-            alt={gameState.analytics ? "button toggled on" : "button toggled off"}
+            alt={showAnalyticsNotifications ? "button toggled on" : "button toggled off"}
           />
         </button>
       </div>

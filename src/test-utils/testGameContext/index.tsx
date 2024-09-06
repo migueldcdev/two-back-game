@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import { ReactElement } from "react";
 
-import { Context, gameContext } from "..";
+import { Context, gameContext } from "../../context/GameContext";
 
 interface ProviderProps {
   children: React.ReactNode;

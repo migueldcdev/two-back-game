@@ -15,18 +15,15 @@ export const gameContext = createContext<Context | null>(null);
 export const GameContext = ({ children }: { children: React.ReactNode }) => {
   const [gameState, gameDispatch] = useReducer(gameReducer, initialGameState);
 
-  function handleCorrectGuess() {
-    gameDispatch({ type: "incrementCorrectAnswer" });
-    gameDispatch({ type: "setUserClickCorrect" });
+  function handleCorrectGuess() {    
+    gameDispatch({ type: "USER_CLICKED_CORRECT" });
   }
 
-  function handleIncorrectGuess() {
-    gameDispatch({ type: "incrementWrongAnswer" });
-    gameDispatch({ type: "setUserClickWrong" });
+  function handleIncorrectGuess() {    
+    gameDispatch({ type: "USER_CLICKED_WRONG" });
   }
 
-  function checkUserClickResult() {
-    gameDispatch({ type: "setNotification", notification: "User clicked two back button" });
+  function checkUserClickResult() {    
     const hasUserAlreadyClicked = gameState.userClickIsCorrect || gameState.userClickIsWrong;
     if (hasUserAlreadyClicked) return;
 
@@ -36,7 +33,7 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
       handleCorrectGuess();
     } else {
       handleIncorrectGuess();
-      if (gameState.wrongAnswers > 0) gameDispatch({ type: "nextGamePhase" });
+      if (gameState.wrongAnswers > 0) gameDispatch({ type: "END_GAME" });
     }
   }
 
@@ -47,31 +44,31 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
     const isAnOmissionError = gameState.currentLetter === gameState.twoBackLetter;
 
     if (isAnOmissionError) {
-      if (gameState.countCycle >= 2) gameDispatch({ type: "incrementWrongAnswer" });
-      if (gameState.wrongAnswers > 0) gameDispatch({ type: "nextGamePhase" });
+      if (gameState.countCycle >= 2) gameDispatch({ type: "SUM_WRONG_ANSWER" });
+      if (gameState.wrongAnswers > 0) gameDispatch({ type: "END_GAME" });
 
       return;
     }
 
-    gameDispatch({ type: "incrementCorrectAnswer" });
+    gameDispatch({ type: "SUM_CORRECT_ANSWER" });
   }, [gameState]);
 
   function handleShowLetter() {
     const timeOutShowLetter = setTimeout(() => {
-      gameDispatch({ type: "hideLetter" });
+      gameDispatch({ type: "HIDE_LETTER" });
     }, 500);
 
     return () => clearTimeout(timeOutShowLetter);
   }
 
   useEffect(() => {
-    if (gameState.gamePhase !== 2) return;
+    if (gameState.gamePhase !== 'playGame') return;
 
-    if (gameState.countCycle > 15) gameDispatch({ type: "nextGamePhase" });
+    if (gameState.countCycle > 15) gameDispatch({ type: "END_GAME" });
 
     const timeOutNextLetter = setTimeout(() => {
       handleUserOmission();
-      gameDispatch({ type: "next", nextLetter: generateLetter() });
+      gameDispatch({ type: "NEXT_LETTER", nextLetter: generateLetter() });
       handleShowLetter();
     }, 3000);
 

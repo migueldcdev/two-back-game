@@ -4,13 +4,13 @@ import { useGameContext } from "../../context/GameContext";
 
 export const Analytics = () => {
   const { gameState } = useGameContext();
-  const { analytics, notification } = gameState;
+  const {showAnalyticsNotifications, notification } = gameState;
 
   useEffect(() => {
-    if (analytics) {
+    if (showAnalyticsNotifications) {
       toast.success(notification);
     }
-  }, [notification, analytics]);
+  }, [notification, showAnalyticsNotifications]);
 
   return <Toaster position="top-right" />;
 };
