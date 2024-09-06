@@ -31,7 +31,7 @@ describe("Test suite for GameScreen component", () => {
   });
 
   test("two back button should work", async () => {
-    const user = userEvent;
+    const user = userEvent.setup();
     const checkUserClickResult = vi.fn();
     render(<GameScreen />, { ...context, checkUserClickResult });
 

@@ -41,7 +41,7 @@ describe("Test suite InsertNameScreen component", () => {
   });
 
   test("should write name to input and click button", async () => {
-    const user = userEvent;
+    const user = userEvent.setup();
 
     const gameDispatch = vi.fn();
 
@@ -73,7 +73,7 @@ describe("Test suite InsertNameScreen component", () => {
   });
 
   test("toggle analytics button should work", async () => {
-    const user = userEvent;
+    const user = userEvent.setup();
 
     const gameDispatch = vi.fn();
 

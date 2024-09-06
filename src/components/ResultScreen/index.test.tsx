@@ -39,7 +39,7 @@ describe("Test suite for ResultScreen component", () => {
 
   test("restart game button should work", async () => {
     const gameDispatch = vi.fn();
-    const user = userEvent;
+    const user = userEvent.setup();
     render(<ResultScreen />, { ...context, gameDispatch });
     const restartGameButton = screen.getByRole("button");
     await user.click(restartGameButton);
