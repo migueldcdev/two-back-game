@@ -1,5 +1,3 @@
-
-
 # TASKS
 
 31/08/24
@@ -20,7 +18,7 @@
 
 - Use a component library, abstract all design.
 - Use words instead of numbers for phase state.
-- Refactor toast function inside useEffect
+- Refactor toast function inside useEffect ✅
 - Deconstruct gameState for cleaner code.
 - Set linter to give array dependencies warnings
 - Refactor game corners color logic (TailwinCSS does not handle well conditional styles)
