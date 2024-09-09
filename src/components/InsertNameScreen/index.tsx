@@ -49,7 +49,7 @@ export const InsertNameScreen = () => {
           same letter two letters ago.
         </p>
         <p className="mt-2">
-          If you saw the same letter 2 letters ago, you click on the big green button. If you did correctly, you see{" "}
+          If you saw the same letter 2 letters ago, you click on the big green button. If you did correctly, you will see{" "}
           <span className="text-green-500">green</span> colors around the letter, otherwise you will see{" "}
           <span className="text-red-500">red</span> around the letter.
         </p>
