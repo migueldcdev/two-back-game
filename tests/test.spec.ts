@@ -20,13 +20,13 @@ test("user activates analytics and plays game", async ({ page }) => {
   //page shows analytics event toast
   const startButtonClickedToast = page.getByText("User clicked start button");
   expect(startButtonClickedToast).toBeInViewport();
-
+  
   //user waits until game start
-  const getReadyParagraph = page.getByRole("paragraph", { name: "Get ready!" });
+  const getReadyParagraph = page.getByText("Get ready!");
   expect(getReadyParagraph).toBeInViewport();
   
   //user starts game
-  const twoBackButton = page.getByRole("button"); 
+  const twoBackButton = page.getByRole("button", {name: 'Two Back'}); 
   await twoBackButton.click();
 
   //user mistake click
@@ -38,13 +38,13 @@ test("user activates analytics and plays game", async ({ page }) => {
   expect(twoBackButtonClickedToast).toBeInViewport();
 
   //user waits until the next letter shows
-  await page.waitForTimeout(3250);
+  await page.waitForTimeout(3500);
 
   //user makes second mistake
   await twoBackButton.click();
 
   //app go to results page
-  const results = page.getByRole("paragraph", { name: "RESULTS" });
+  const results = page.getByText("Results");
   expect(results).toBeInViewport();
 
   //result page should show correct and wrong results
@@ -54,7 +54,7 @@ test("user activates analytics and plays game", async ({ page }) => {
   expect(wrongCount).toBeDefined();
 
   //user restarts game
-  const restartButton = page.getByRole("button");
+  const restartButton = page.getByRole("button", {name: /(&#128472;\s*)?Restart game/i});
   await restartButton.click();
   expect(inputName).toBeInViewport();
 
