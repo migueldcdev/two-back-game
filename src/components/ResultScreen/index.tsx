@@ -6,7 +6,7 @@ export const ResultScreen = () => {
   const { correctAnswers, wrongAnswers } = gameState;
 
   return (
-    <section className="p-3 rounded border p-6">
+    <section className="p-3 rounded border p-6 bg-white">
       <article>
         <p className="text-2xl mb-6 text-center font-bold">Results</p>
         <hr/>

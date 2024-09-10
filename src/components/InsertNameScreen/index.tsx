@@ -17,7 +17,7 @@ export const InsertNameScreen = () => {
   }
 
   return (
-    <section className="border rounded p-6">
+    <section className="border rounded p-6 bg-white">
       <div className="flex flex-col">
         <p className="text-slate-800 text-xl font-bold my-6">Welcome to Two Back Game:</p>
         <hr/>
