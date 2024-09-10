@@ -3,25 +3,32 @@ import { useGameContext } from "../../context/GameContext";
 export const ResultScreen = () => {
   const { gameState, gameDispatch } = useGameContext();
 
-  const { correctAnswers, wrongAnswers } = gameState;  
+  const { correctAnswers, wrongAnswers } = gameState;
 
   return (
-    <section>
-      <article className="text-center p-3 rounded bg-slate-600">
-        <p className="text-2xl mb-6 text-slate-300 ">RESULTS</p>
-        <p className="mb-4 text-slate-400">
-          Correct: <span className="text-green-500">{correctAnswers}</span>
-        </p>
-        <p className="text-slate-400">
-          Wrong: <span className="text-red-500">{wrongAnswers}</span>
-        </p>
+    <section className="p-3 rounded border p-6">
+      <article>
+        <p className="text-2xl mb-6 text-center font-bold">Results</p>
+        <hr/>
+        <div className="flex justify-between items-center p-4 bg-green-50 rounded-lg mt-6">
+          <div className="flex items-center space-x-2">
+            <span className="text-lg font-medium text-slate-700">&#9989; Correct</span>
+          </div>
+          <span className="text-2xl font-bold text-green-500">{correctAnswers}</span>
+        </div>
+        <div className="flex justify-between items-center p-4 bg-red-50 rounded-lg mt-6">
+          <div className="flex items-center space-x-2">            
+            <span className="text-lg font-medium text-slate-700"><span className="text-base">&#10060;</span> Wrong</span>
+          </div>
+          <span className="text-2xl font-bold text-red-500">{wrongAnswers}</span>
+        </div>
       </article>
       <div className="p-3 mt-10 text-center text-slate-600">
         <button
-          className="px-4 py-2 bg-green-500 rounded text-white text-xl mt-4 cursor-pointer hover:bg-green-600"
+          className="px-6 py-3 bg-slate-800 rounded text-white text-xl mt-4 cursor-pointer hover:bg-slate-700"
           onClick={() => gameDispatch({ type: "RESTART_GAME" })}
         >
-          Restart game
+          &#128472; Restart game
         </button>
       </div>
     </section>

@@ -8,7 +8,7 @@ export const GameScreen = () => {
   const { countCycle, userClickIsCorrect, userClickIsWrong, currentLetter, showLetter } = gameState;
 
   function getBorderColor() {
-    if(!userClickIsCorrect && !userClickIsWrong) return "text-slate-400";
+    if(!userClickIsCorrect && !userClickIsWrong) return "text-slate-500";
     return userClickIsCorrect ? "text-green-500" : "text-red-500"
   }
 
@@ -19,7 +19,7 @@ export const GameScreen = () => {
       {countCycle === 0 ? (
         <SvgLoader />
       ) : (
-        <div className="text-slate-700 flex flex-col">  
+        <div className="text-slate-800 flex flex-col">  
           {/* Top border corners */}        
           <span className={borderColor}>⌜&nbsp;&nbsp;⌝</span>
 
@@ -28,7 +28,7 @@ export const GameScreen = () => {
           {/* Bottom border corners */}
           <span className={borderColor}>⌞&nbsp;&nbsp;⌟</span>
           <button
-            className="px-4 py-6 bg-green-500 rounded text-white text-xl mt-16 cursor-pointer hover:bg-green-600"
+            className="px-4 py-6 bg-slate-800 rounded text-white text-xl mt-16 cursor-pointer hover:bg-slate-700"
             onClick={checkUserClickResult}
           >
             Two Back

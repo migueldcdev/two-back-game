@@ -16,7 +16,7 @@
 
 5/09/24
 
-- Use a component library, abstract all design.
+- Refactor UI ✅
 - Use words instead of numbers for phase state ✅
 - Refactor toast function inside useEffect ✅
 - Deconstruct gameState for cleaner code ✅
@@ -45,4 +45,6 @@
 - Create code that answers questions as you go
 - If something is being use it in just one place don't pull it out
 
-5/09/24
+5/09/24 
+
+- Use a component library, abstract all design.
