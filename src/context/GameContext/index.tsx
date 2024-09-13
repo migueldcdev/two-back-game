@@ -15,7 +15,7 @@ export const gameContext = createContext<Context | null>(null);
 export const GameContext = ({ children }: { children: React.ReactNode }) => {
   const [gameState, gameDispatch] = useReducer(gameReducer, initialGameState);
 
-  const hasUserAlreadyClicked = useCallback(() => {
+  const didUserAlreadyClick = useCallback(() => {
     return gameState.userClickIsCorrect != null;
   }, [gameState.userClickIsCorrect]);
 
@@ -35,15 +35,13 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
     [gameState.wrongAnswers],
   );
 
-  function checkUserClickResult() {
-    if (hasUserAlreadyClicked()) return;
+  function checkUserClickResult() {  
 
     const isCorrect = isTwoBackLetterCoincidence();
     handleUserResponse(isCorrect, isCorrect ? true : false);
   }
 
-  const handleUserOmission = useCallback(() => {
-    if (hasUserAlreadyClicked()) return;
+  const handleUserOmission = useCallback(() => {  
 
     if (isTwoBackLetterCoincidence()) {
       if (gameState.lettersArray.length >= 2) {
@@ -56,7 +54,7 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
     }
 
     handleUserResponse(true, null);
-  }, [gameState, hasUserAlreadyClicked, isTwoBackLetterCoincidence, handleUserResponse]);
+  }, [gameState, isTwoBackLetterCoincidence, handleUserResponse]);
 
   function handleShowLetter() {
     const timeOutShowLetter = setTimeout(() => {
@@ -71,13 +69,13 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
     if (gameState.lettersArray.length > 15) gameDispatch({ type: "END_GAME" });
 
     const timeOutNextLetter = setTimeout(() => {
-      handleUserOmission();
+      if (!didUserAlreadyClick()) handleUserOmission();
       gameDispatch({ type: "NEXT_LETTER", nextLetter: generateLetter() });
       handleShowLetter();
     }, 3000);
 
     return () => clearTimeout(timeOutNextLetter);
-  }, [gameState, handleUserOmission]);
+  }, [gameState, handleUserOmission, didUserAlreadyClick]);
 
   return (
     <gameContext.Provider value={{ gameState, gameDispatch, checkUserClickResult }}>{children}</gameContext.Provider>

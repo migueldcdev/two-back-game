@@ -5,9 +5,13 @@ import { SvgLoader } from "../SvgLoader";
 export const GameScreen = () => {
   const { gameState, checkUserClickResult } = useGameContext();
 
-  const { userClickIsCorrect, lettersArray, showLetter } = gameState;
+  const { userClickIsCorrect, lettersArray, showLetter} = gameState;
 
   const currentLetter = lettersArray[lettersArray.length - 1];
+
+  function didUserAlreadyClick() {
+    return userClickIsCorrect === null ? false : true;
+  }
 
   function getBorderColor() {
     if (userClickIsCorrect === null) return "text-slate-500";
@@ -30,7 +34,8 @@ export const GameScreen = () => {
           {/* Bottom border corners */}
           <span className={borderColor}>⌞&nbsp;&nbsp;⌟</span>
           <button
-            className="px-4 py-6 bg-green-600 rounded text-white text-xl mt-16 cursor-pointer hover:bg-green-500"
+            className="px-4 py-6 bg-green-600 rounded text-white text-xl mt-16 cursor-pointer hover:bg-green-500 disabled:bg-slate-300"
+            disabled={didUserAlreadyClick()}
             onClick={checkUserClickResult}
           >
             Two Back
