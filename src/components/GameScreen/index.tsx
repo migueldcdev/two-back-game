@@ -5,7 +5,7 @@ import { SvgLoader } from "../SvgLoader";
 export const GameScreen = () => {
   const { gameState, checkUserClickResult } = useGameContext();
 
-  const { userClickIsCorrect, lettersArray, showLetter} = gameState;
+  const { userClickIsCorrect, lettersArray, showLetter } = gameState;
 
   const currentLetter = lettersArray[lettersArray.length - 1];
 

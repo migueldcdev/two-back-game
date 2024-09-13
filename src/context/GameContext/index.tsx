@@ -35,14 +35,12 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
     [gameState.wrongAnswers],
   );
 
-  function checkUserClickResult() {  
-
+  function checkUserClickResult() {
     const isCorrect = isTwoBackLetterCoincidence();
     handleUserResponse(isCorrect, isCorrect ? true : false);
   }
 
-  const handleUserOmission = useCallback(() => {  
-
+  const handleUserOmission = useCallback(() => {
     if (isTwoBackLetterCoincidence()) {
       if (gameState.lettersArray.length >= 2) {
         handleUserResponse(false, null);
