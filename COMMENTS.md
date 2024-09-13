@@ -45,6 +45,6 @@
 - Create code that answers questions as you go
 - If something is being use it in just one place don't pull it out
 
-5/09/24 
+5/09/24
 
 - Use a component library, abstract all design.

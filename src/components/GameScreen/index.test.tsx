@@ -1,19 +1,16 @@
 import { userEvent } from "@testing-library/user-event";
 import { describe, expect, test, vi } from "vitest";
 import { GameScreen } from ".";
+import { GameStage } from "../../reducer/gameReducer";
 import { render, screen } from "../../test-utils/testGameContext";
 
 const context = {
   gameState: {
     userName: "",
-    twoBackLetter: "A",
-    previousLetter: "B",
-    currentLetter: "C",
-    countCycle: 3,
+    lettersArray: ["A", "B", "C"],
     showLetter: true,
-    userClickIsWrong: false,
-    userClickIsCorrect: false,
-    gamePhase: "playGame",
+    userClickIsCorrect: null,
+    gameStage: "playGame" as GameStage,
     correctAnswers: 2,
     wrongAnswers: 0,
     showAnalyticsNotifications: false,
@@ -35,7 +32,7 @@ describe("Test suite for GameScreen component", () => {
     const checkUserClickResult = vi.fn();
     render(<GameScreen />, { ...context, checkUserClickResult });
 
-    const twoBackButton = screen.getByRole("button", {name: "Two Back"});
+    const twoBackButton = screen.getByRole("button", { name: "Two Back" });
 
     await user.click(twoBackButton);
 

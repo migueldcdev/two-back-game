@@ -1,19 +1,16 @@
 import userEvent from "@testing-library/user-event";
 import { describe, expect, test, vi } from "vitest";
 import { ResultScreen } from ".";
+import { GameStage } from "../../reducer/gameReducer";
 import { render, screen } from "../../test-utils/testGameContext";
 
 const context = {
   gameState: {
     userName: "",
-    twoBackLetter: "A",
-    previousLetter: "B",
-    currentLetter: "C",
-    countCycle: 15,
+    lettersArray: [],
     showLetter: false,
-    userClickIsWrong: false,
-    userClickIsCorrect: false,
-    gamePhase: "endGame",
+    userClickIsCorrect: null,
+    gameStage: "endGame" as GameStage,
     correctAnswers: 14,
     wrongAnswers: 1,
     showAnalyticsNotifications: false,
@@ -22,8 +19,7 @@ const context = {
   gameDispatch: () => {},
   checkUserClickResult: () => {},
 };
-describe("Test suite for ResultScreen component", () => {  
-
+describe("Test suite for ResultScreen component", () => {
   test("it should render corrects and wrongs score", () => {
     render(<ResultScreen />, context);
     const correctScore = screen.getByText("14");
@@ -38,6 +34,6 @@ describe("Test suite for ResultScreen component", () => {
     render(<ResultScreen />, { ...context, gameDispatch });
     const restartGameButton = screen.getByRole("button");
     await user.click(restartGameButton);
-    expect(gameDispatch).toBeCalledWith({ "type": "RESTART_GAME"});
+    expect(gameDispatch).toBeCalledWith({ type: "RESTART_GAME" });
   });
 });

@@ -15,43 +15,48 @@ export const gameContext = createContext<Context | null>(null);
 export const GameContext = ({ children }: { children: React.ReactNode }) => {
   const [gameState, gameDispatch] = useReducer(gameReducer, initialGameState);
 
-  function handleCorrectGuess() {    
-    gameDispatch({ type: "USER_CLICKED_CORRECT" });
-  }
+  const hasUserAlreadyClicked = useCallback(() => {
+    return gameState.userClickIsCorrect != null;
+  }, [gameState.userClickIsCorrect]);
 
-  function handleIncorrectGuess() {    
-    gameDispatch({ type: "USER_CLICKED_WRONG" });
-  }
+  const isTwoBackLetterCoincidence = useCallback(() => {
+    const lastLetter = gameState.lettersArray[gameState.lettersArray.length - 1];
+    const twoBackLetter = gameState.lettersArray[gameState.lettersArray.length - 3];
+    return lastLetter === twoBackLetter;
+  }, [gameState.lettersArray]);
 
-  function checkUserClickResult() {    
-    const hasUserAlreadyClicked = gameState.userClickIsCorrect || gameState.userClickIsWrong;
-    if (hasUserAlreadyClicked) return;
+  const handleUserResponse = useCallback(
+    (isCorrect: boolean, userDidClickCorrect: boolean | null) => {
+      gameDispatch({ type: "USER_RESPONDED", isCorrect, userDidClickCorrect });
+      if (gameState.wrongAnswers > 0) {
+        gameDispatch({ type: "END_GAME" });
+      }
+    },
+    [gameState.wrongAnswers],
+  );
 
-    const isCorrect = gameState.currentLetter === gameState.twoBackLetter;
+  function checkUserClickResult() {
+    if (hasUserAlreadyClicked()) return;
 
-    if (isCorrect) {
-      handleCorrectGuess();
-    } else {
-      handleIncorrectGuess();
-      if (gameState.wrongAnswers > 0) gameDispatch({ type: "END_GAME" });
-    }
+    const isCorrect = isTwoBackLetterCoincidence();
+    handleUserResponse(isCorrect, isCorrect ? true : false);
   }
 
   const handleUserOmission = useCallback(() => {
-    const hasUserAlreadyClicked = gameState.userClickIsCorrect || gameState.userClickIsWrong;
-    if (hasUserAlreadyClicked) return;
+    if (hasUserAlreadyClicked()) return;
 
-    const isAnOmissionError = gameState.currentLetter === gameState.twoBackLetter;
-
-    if (isAnOmissionError) {
-      if (gameState.countCycle >= 2) gameDispatch({ type: "SUM_WRONG_ANSWER" });
-      if (gameState.wrongAnswers > 0) gameDispatch({ type: "END_GAME" });
+    if (isTwoBackLetterCoincidence()) {
+      if (gameState.lettersArray.length >= 2) {
+        handleUserResponse(false, null);
+        return;
+      }
+      if (gameState.lettersArray.length >= 1) handleUserResponse(true, null);
 
       return;
     }
 
-    gameDispatch({ type: "SUM_CORRECT_ANSWER" });
-  }, [gameState]);
+    handleUserResponse(true, null);
+  }, [gameState, hasUserAlreadyClicked, isTwoBackLetterCoincidence, handleUserResponse]);
 
   function handleShowLetter() {
     const timeOutShowLetter = setTimeout(() => {
@@ -62,9 +67,8 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
   }
 
   useEffect(() => {
-    if (gameState.gamePhase !== 'playGame') return;
-
-    if (gameState.countCycle > 15) gameDispatch({ type: "END_GAME" });
+    if (gameState.gameStage !== "playGame") return;
+    if (gameState.lettersArray.length > 15) gameDispatch({ type: "END_GAME" });
 
     const timeOutNextLetter = setTimeout(() => {
       handleUserOmission();

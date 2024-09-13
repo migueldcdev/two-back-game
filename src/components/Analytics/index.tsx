@@ -4,7 +4,7 @@ import { useGameContext } from "../../context/GameContext";
 
 export const Analytics = () => {
   const { gameState } = useGameContext();
-  const {showAnalyticsNotifications, notification } = gameState;
+  const { showAnalyticsNotifications, notification } = gameState;
 
   useEffect(() => {
     if (showAnalyticsNotifications) {

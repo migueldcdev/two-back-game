@@ -20,13 +20,13 @@ test("user activates analytics and plays game", async ({ page }) => {
   //page shows analytics event toast
   const startButtonClickedToast = page.getByText("User clicked start button");
   expect(startButtonClickedToast).toBeInViewport();
-  
+
   //user waits until game start
   const getReadyParagraph = page.getByText("Get ready!");
   expect(getReadyParagraph).toBeInViewport();
-  
+
   //user starts game
-  const twoBackButton = page.getByRole("button", {name: 'Two Back'}); 
+  const twoBackButton = page.getByRole("button", { name: "Two Back" });
   await twoBackButton.click();
 
   //user mistake click
@@ -54,7 +54,7 @@ test("user activates analytics and plays game", async ({ page }) => {
   expect(wrongCount).toBeDefined();
 
   //user restarts game
-  const restartButton = page.getByRole("button", {name: /(&#128472;\s*)?Restart game/i});
+  const restartButton = page.getByRole("button", { name: /(&#128472;\s*)?Restart game/i });
   await restartButton.click();
   expect(inputName).toBeInViewport();
 

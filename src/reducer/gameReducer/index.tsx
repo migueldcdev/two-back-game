@@ -1,13 +1,11 @@
+export type GameStage = "startGame" | "playGame" | "endGame";
+
 export type GameState = {
   userName: string;
-  twoBackLetter: string;
-  previousLetter: string;
-  currentLetter: string;
-  countCycle: number;
+  lettersArray: string[];
   showLetter: boolean;
-  userClickIsCorrect: boolean;
-  userClickIsWrong: boolean;
-  gamePhase: string;
+  userClickIsCorrect: boolean | null;
+  gameStage: GameStage;
   correctAnswers: number;
   wrongAnswers: number;
   showAnalyticsNotifications: boolean;
@@ -17,28 +15,18 @@ export type GameState = {
 export type GameAction =
   | { type: "NEXT_LETTER"; nextLetter: string }
   | { type: "START_GAME"; userName: string }
-  | {
-      type:
-        | "HIDE_LETTER"
-        | "USER_CLICKED_CORRECT"
-        | "USER_CLICKED_WRONG"
-        | "RESTART_GAME"        
-        | "END_GAME"
-        | "SUM_CORRECT_ANSWER"
-        | "SUM_WRONG_ANSWER"
-        | "SET_ANALYTICS_NOTIFICATIONS";
-    }  
+  | { type: "HIDE_LETTER" }
+  | { type: "USER_RESPONDED"; isCorrect: boolean; userDidClickCorrect: boolean | null }
+  | { type: "RESTART_GAME" }
+  | { type: "END_GAME" }
+  | { type: "SET_ANALYTICS_NOTIFICATIONS" };
 
-export const initialGameState = {
+export const initialGameState: GameState = {
   userName: "",
-  twoBackLetter: "",
-  previousLetter: "",
-  currentLetter: "",
-  countCycle: 0,
+  lettersArray: [],
   showLetter: true,
-  userClickIsCorrect: false,
-  userClickIsWrong: false,
-  gamePhase: 'startGame',
+  userClickIsCorrect: null,
+  gameStage: "startGame",
   correctAnswers: 0,
   wrongAnswers: 0,
   showAnalyticsNotifications: false,
@@ -51,60 +39,41 @@ export function gameReducer(state: GameState, action: GameAction) {
       return {
         ...state,
         userName: action.userName,
-        gamePhase: "playGame",
+        gameStage: "playGame" as GameStage,
         notification: "User clicked start button" + `\n Timestamp: ${Date.now()}`,
       };
     case "NEXT_LETTER":
       return {
         ...state,
-        twoBackLetter: state.previousLetter,
-        previousLetter: state.currentLetter,
-        currentLetter: action.nextLetter,
-        countCycle: state.countCycle + 1,
+        lettersArray: [...state.lettersArray, action.nextLetter],
         showLetter: true,
-        userClickIsCorrect: false,
-        userClickIsWrong: false,
-        error: false,
-      };   
+        userClickIsCorrect: null,
+      };
     case "END_GAME":
       return {
         ...state,
-        gamePhase: 'endGame'
-      }  
+        gameStage: "endGame" as GameStage,
+      };
     case "HIDE_LETTER":
       return {
         ...state,
         showLetter: false,
       };
-    case "USER_CLICKED_CORRECT":
+    case "USER_RESPONDED":
       return {
         ...state,
-        correctAnswers: state.correctAnswers + 1,
-        userClickIsCorrect: true,
-        userClickIsWrong: false,
-        notification: "User clicked two back button" + `\n Timestamp: ${Date.now()}`,
-      };
-    case "USER_CLICKED_WRONG":
-      return {
-        ...state,
-        wrongAnswers: state.wrongAnswers + 1,
-        userClickIsWrong: true,
-        userClickIsCorrect: false,
-        notification: "User clicked two back button" + `\n Timestamp: ${Date.now()}`,
-      };
-    case "SUM_CORRECT_ANSWER":
-      return {
-        ...state,
-        correctAnswers: state.correctAnswers + 1,
-      };
-    case "SUM_WRONG_ANSWER":
-      return {
-        ...state,
-        wrongAnswers: state.wrongAnswers + 1,
+        correctAnswers: state.correctAnswers + (action.isCorrect ? 1 : 0),
+        wrongAnswers: state.wrongAnswers + (action.isCorrect ? 0 : 1),
+        userClickIsCorrect: action.userDidClickCorrect,
+        notification:
+          action.userDidClickCorrect !== null
+            ? "User clicked two back button" + `\n Timestamp: ${Date.now()}`
+            : state.notification,
       };
     case "RESTART_GAME":
       return {
         ...initialGameState,
+        userName: state.userName,
         showAnalyticsNotifications: state.showAnalyticsNotifications,
         notification: "User clicked restart button" + `\n Timestamp: ${Date.now()}`,
       };
@@ -114,7 +83,7 @@ export function gameReducer(state: GameState, action: GameAction) {
         ...state,
         showAnalyticsNotifications: !state.showAnalyticsNotifications,
         notification: "User clicked set analytics button" + `\n Timestamp: ${Date.now()}`,
-      };    
+      };
     default:
       return state;
   }

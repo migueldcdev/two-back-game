@@ -1,19 +1,16 @@
 import { userEvent } from "@testing-library/user-event";
 import { describe, expect, test, vi } from "vitest";
 import { InsertNameScreen } from ".";
+import { GameStage } from "../../reducer/gameReducer";
 import { render, screen } from "../../test-utils/testGameContext";
 
 const context = {
   gameState: {
     userName: "",
-    twoBackLetter: "",
-    previousLetter: "",
-    currentLetter: "",
-    countCycle: 0,
+    lettersArray: [],
     showLetter: true,
-    userClickIsWrong: false,
-    userClickIsCorrect: false,
-    gamePhase: "startGame",
+    userClickIsCorrect: null,
+    gameStage: "startGame" as GameStage,
     correctAnswers: 0,
     wrongAnswers: 0,
     showAnalyticsNotifications: false,
@@ -23,8 +20,7 @@ const context = {
   checkUserClickResult: () => {},
 };
 
-describe("Test suite InsertNameScreen component", () => {  
-
+describe("Test suite InsertNameScreen component", () => {
   test("should write name to input, click button and toggle analytics button", async () => {
     const user = userEvent.setup();
 
@@ -36,20 +32,16 @@ describe("Test suite InsertNameScreen component", () => {
 
     await user.type(input, "John");
 
-    const button = screen.getByRole('button', {name: "Start"});
+    const button = screen.getByRole("button", { name: "Start" });
 
     await user.click(button);
 
-    expect(gameDispatch).toBeCalledWith(
-      {"type": "START_GAME", "userName": "John"}
-    );
+    expect(gameDispatch).toBeCalledWith({ type: "START_GAME", userName: "John" });
 
     const toggleButton = screen.getByLabelText("Activate analytics");
 
     await user.click(toggleButton);
 
-    expect(gameDispatch).toBeCalledWith({"type": "SET_ANALYTICS_NOTIFICATIONS"});
+    expect(gameDispatch).toBeCalledWith({ type: "SET_ANALYTICS_NOTIFICATIONS" });
   });
 });
- 
-
