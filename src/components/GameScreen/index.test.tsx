@@ -24,7 +24,7 @@ describe("Test suite for GameScreen component", () => {
   test("should render current letter", () => {
     render(<GameScreen />, context);
     const currentLetter = screen.getByText("C");
-    expect(currentLetter).toBeDefined();
+    expect(currentLetter).toBeInTheDocument();
   });
 
   test("two back button should work", async () => {

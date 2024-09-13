@@ -22,7 +22,7 @@
 - Deconstruct gameState for cleaner code ✅
 - Set linter to give array dependencies warnings ✅
 - Refactor game corners color logic ✅
-- Substitute toBeDefine for toBeInTheDocument ❌ (does not exist in vitest)
+- Substitute toBeDefine for toBeInTheDocument ✅
 - Fix userEvent initialization ✅
 - Make the context specific to each test, not one for all.
 - Functions that are call with parameters, use ToBeCalledWith ✅

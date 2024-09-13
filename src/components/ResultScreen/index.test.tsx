@@ -23,9 +23,9 @@ describe("Test suite for ResultScreen component", () => {
   test("it should render corrects and wrongs score", () => {
     render(<ResultScreen />, context);
     const correctScore = screen.getByText("14");
-    expect(correctScore).toBeDefined();
+    expect(correctScore).toBeInTheDocument();
     const wrongScore = screen.getByText("1");
-    expect(wrongScore).toBeDefined();
+    expect(wrongScore).toBeInTheDocument();
   });
 
   test("restart game button should work", async () => {
