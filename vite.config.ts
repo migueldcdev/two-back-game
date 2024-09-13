@@ -8,6 +8,6 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     dir: "./src",
-    setupFiles: "./vitest.setup.ts"
+    setupFiles: "./vitest.setup.ts",
   },
 });
