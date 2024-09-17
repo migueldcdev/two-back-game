@@ -39,7 +39,7 @@ export function gameReducer(state: GameState, action: GameAction) {
       return {
         ...state,
         userName: action.userName,
-        gameStage: "playGame" as GameStage,
+        gameStage: "playGame" as const,
         notification: "User clicked start button" + `\n Timestamp: ${Date.now()}`,
       };
     case "NEXT_LETTER":
@@ -52,7 +52,7 @@ export function gameReducer(state: GameState, action: GameAction) {
     case "END_GAME":
       return {
         ...state,
-        gameStage: "endGame" as GameStage,
+        gameStage: "endGame" as const,
       };
     case "HIDE_LETTER":
       return {

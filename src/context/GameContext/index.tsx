@@ -14,43 +14,45 @@ export const gameContext = createContext<Context | null>(null);
 
 export const GameContext = ({ children }: { children: React.ReactNode }) => {
   const [gameState, gameDispatch] = useReducer(gameReducer, initialGameState);
-  
-  const didUserAlreadyClick = gameState.userClickIsCorrect != null;
 
-  const isTwoBackLetterCoincidence =
-    gameState.lettersArray[gameState.lettersArray.length - 1] ===
-    gameState.lettersArray[gameState.lettersArray.length - 3];
+  const { lettersArray, userClickIsCorrect, wrongAnswers, gameStage } = gameState;
+
+  const didUserAlreadyClick = userClickIsCorrect != null;
+
+  const hasTwoBackLetterMatch = lettersArray[lettersArray.length - 1] === lettersArray[lettersArray.length - 3];
+
+  const shouldEndGame = lettersArray.length > 15 || wrongAnswers > 1;
 
   const handleUserResponse = useCallback(
     (isCorrect: boolean, userDidClickCorrect: boolean | null) => {
       gameDispatch({ type: "USER_RESPONDED", isCorrect, userDidClickCorrect });
-      if (gameState.wrongAnswers > 0) {
+      if (shouldEndGame) {
         gameDispatch({ type: "END_GAME" });
       }
     },
-    [gameState.wrongAnswers],
+    [shouldEndGame],
   );
 
   function checkUserClickResult() {
-    const isCorrect = isTwoBackLetterCoincidence;
+    const isCorrect = hasTwoBackLetterMatch;
     handleUserResponse(isCorrect, isCorrect);
   }
 
   const handleUserOmission = useCallback(() => {
-    if (isTwoBackLetterCoincidence) {
-      if (gameState.lettersArray.length >= 2) {
+    if (hasTwoBackLetterMatch) {
+      if (lettersArray.length >= 2) {
         handleUserResponse(false, null);
         return;
       }
-      if (gameState.lettersArray.length >= 1) handleUserResponse(true, null);
+      if (lettersArray.length >= 1) handleUserResponse(true, null);
 
       return;
     }
 
     handleUserResponse(true, null);
-  }, [gameState, isTwoBackLetterCoincidence, handleUserResponse]);
+  }, [hasTwoBackLetterMatch, handleUserResponse, lettersArray.length]);
 
-  function handleShowLetter() {
+  function handleHideLetter() {
     const timeOutShowLetter = setTimeout(() => {
       gameDispatch({ type: "HIDE_LETTER" });
     }, 500);
@@ -59,17 +61,17 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
   }
 
   useEffect(() => {
-    if (gameState.gameStage !== "playGame") return;
-    if (gameState.lettersArray.length > 15) gameDispatch({ type: "END_GAME" });
+    if (gameStage !== "playGame") return;
+    if (shouldEndGame) gameDispatch({ type: "END_GAME" });
 
     const timeOutNextLetter = setTimeout(() => {
       if (!didUserAlreadyClick) handleUserOmission();
       gameDispatch({ type: "NEXT_LETTER", nextLetter: generateLetter() });
-      handleShowLetter();
+      handleHideLetter();
     }, 3000);
 
     return () => clearTimeout(timeOutNextLetter);
-  }, [gameState, handleUserOmission, didUserAlreadyClick]);
+  }, [handleUserOmission, didUserAlreadyClick, gameStage, shouldEndGame]);
 
   return (
     <gameContext.Provider value={{ gameState, gameDispatch, checkUserClickResult }}>{children}</gameContext.Provider>
