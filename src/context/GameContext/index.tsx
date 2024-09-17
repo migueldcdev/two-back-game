@@ -14,16 +14,12 @@ export const gameContext = createContext<Context | null>(null);
 
 export const GameContext = ({ children }: { children: React.ReactNode }) => {
   const [gameState, gameDispatch] = useReducer(gameReducer, initialGameState);
+  
+  const didUserAlreadyClick = gameState.userClickIsCorrect != null;
 
-  const didUserAlreadyClick = useCallback(() => {
-    return gameState.userClickIsCorrect != null;
-  }, [gameState.userClickIsCorrect]);
-
-  const isTwoBackLetterCoincidence = useCallback(() => {
-    const lastLetter = gameState.lettersArray[gameState.lettersArray.length - 1];
-    const twoBackLetter = gameState.lettersArray[gameState.lettersArray.length - 3];
-    return lastLetter === twoBackLetter;
-  }, [gameState.lettersArray]);
+  const isTwoBackLetterCoincidence =
+    gameState.lettersArray[gameState.lettersArray.length - 1] ===
+    gameState.lettersArray[gameState.lettersArray.length - 3];
 
   const handleUserResponse = useCallback(
     (isCorrect: boolean, userDidClickCorrect: boolean | null) => {
@@ -36,12 +32,12 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
   );
 
   function checkUserClickResult() {
-    const isCorrect = isTwoBackLetterCoincidence();
-    handleUserResponse(isCorrect, isCorrect ? true : false);
+    const isCorrect = isTwoBackLetterCoincidence;
+    handleUserResponse(isCorrect, isCorrect);
   }
 
   const handleUserOmission = useCallback(() => {
-    if (isTwoBackLetterCoincidence()) {
+    if (isTwoBackLetterCoincidence) {
       if (gameState.lettersArray.length >= 2) {
         handleUserResponse(false, null);
         return;
@@ -67,7 +63,7 @@ export const GameContext = ({ children }: { children: React.ReactNode }) => {
     if (gameState.lettersArray.length > 15) gameDispatch({ type: "END_GAME" });
 
     const timeOutNextLetter = setTimeout(() => {
-      if (!didUserAlreadyClick()) handleUserOmission();
+      if (!didUserAlreadyClick) handleUserOmission();
       gameDispatch({ type: "NEXT_LETTER", nextLetter: generateLetter() });
       handleShowLetter();
     }, 3000);
