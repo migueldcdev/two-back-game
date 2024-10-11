@@ -5,6 +5,10 @@ The n-back task is a continuous performance task that is commonly used as an ass
 ![Example Image](https://github.com/migueldcdev/repo-images/blob/main/two-back-game/two-back-game.gif)
 
 
+## Resources:
+- [N-Back (2-back) task](https://www.psytoolkit.org/experiment-library/touch_nback2.html)
+- [n-back Wikipedia](https://en.wikipedia.org/wiki/N-back)
+
 ## Useful commands:
 
 ### Installation
@@ -57,6 +61,3 @@ To format your code using Prettier, execute:
 npx prettier . --write
 ```
 
-## Resources:
-- [N-Back (2-back) task](https://www.psytoolkit.org/experiment-library/touch_nback2.html)
-- [n-back Wikipedia](https://en.wikipedia.org/wiki/N-back)
