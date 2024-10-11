@@ -1,6 +1,9 @@
-# React + TypeScript + Vite
+# 2-Back Game 
 
-This project is set up with React, TypeScript, and Vite for fast and modern development.
+The n-back task is a continuous performance task that is commonly used as an assessment in psychology and cognitive neuroscience to measure a part of working memory and working memory capacity. The subject is presented with a sequence of stimuli, and the task consists of indicating when the current stimulus matches the one from n steps earlier in the sequence. In this game n = 2.
+
+![Example Image]([images/example.png](https://github.com/migueldcdev/repo-images/blob/main/two-back-game/two-back-game-init.png))
+
 
 ## Useful commands:
 
