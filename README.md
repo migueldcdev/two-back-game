@@ -2,7 +2,7 @@
 
 This project is set up with React, TypeScript, and Vite for fast and modern development.
 
-## Getting Started
+## Useful commands:
 
 ### Installation
 
@@ -53,3 +53,7 @@ To format your code using Prettier, execute:
 ```bash
 npx prettier . --write
 ```
+
+## Resources:
+- [N-Back (2-back) task](https://www.psytoolkit.org/experiment-library/touch_nback2.html)
+- [n-back Wikipedia](https://en.wikipedia.org/wiki/N-back)
