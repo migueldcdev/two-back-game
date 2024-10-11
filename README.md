@@ -7,7 +7,7 @@ The n-back task is a continuous performance task that is commonly used as an ass
 
 ## Resources:
 - [N-Back (2-back) task](https://www.psytoolkit.org/experiment-library/touch_nback2.html)
-- [n-back Wikipedia](https://en.wikipedia.org/wiki/N-back)
+- [N-back Wikipedia](https://en.wikipedia.org/wiki/N-back)
 
 ## Useful commands:
 
